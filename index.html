@@ -287,6 +287,7 @@ input,textarea,select{font-family:inherit;font-size:inherit}
   <div class="header-actions">
     <button class="btn btn-ghost btn-sm" onclick="exportData()">导出</button>
     <button class="btn btn-ghost btn-sm" onclick="importData()">导入</button>
+    <button class="btn btn-ghost btn-sm" onclick="openQuickCreateModal()" style="border-color:var(--blue);color:var(--blue)">⚡ 快速建项</button>
     <button class="btn btn-primary btn-sm" onclick="openAddProjectModal()">+ 新建项目</button>
   </div>
 </header>
@@ -502,6 +503,26 @@ input,textarea,select{font-family:inherit;font-size:inherit}
   <div class="form-group"><label>说明</label><input id="financeNote"></div>
   <input type="hidden" id="financeId">
   <div class="modal-actions"><button class="btn btn-ghost btn-sm" onclick="closeModal('financeModal')">取消</button><button class="btn btn-primary btn-sm" onclick="saveFinance()">保存</button></div>
+</div></div>
+
+<!-- Quick Create Modal -->
+<div class="modal-overlay" id="quickModal"><div class="modal" style="max-width:560px">
+  <h3>⚡ 快速建项</h3>
+  <p style="font-size:.78rem;color:var(--text-dim);margin-bottom:16px">填写基本信息，自动创建项目 + 脚本占位 + 进度任务 + 财务记录</p>
+  <div class="form-row">
+    <div class="form-group"><label>项目名称</label><input id="qcName" placeholder="如：20261120艾蒙拉MIC"></div>
+    <div class="form-group"><label>归属账号</label><select id="qcAcct"><option value="wsy">📷 五拾叁</option><option value="wmxz">🎬 吴名小卒</option><option value="zfdg">📷 追风的光</option></select></div>
+  </div>
+  <div class="form-row">
+    <div class="form-group"><label>预算（元）</label><input id="qcBudget" type="number" placeholder="0" value="0"></div>
+    <div class="form-group"><label>发布截止日期</label><input type="date" id="qcDeadline"></div>
+  </div>
+  <div class="form-row">
+    <div class="form-group"><label>结款日期</label><input type="date" id="qcPayDate"></div>
+    <div class="form-group"><label>结款金额（元）</label><input id="qcPayAmount" type="number" placeholder="0" value="0"></div>
+  </div>
+  <div class="form-group"><label>备注</label><textarea id="qcNote" placeholder="项目说明（选填）"></textarea></div>
+  <div class="modal-actions"><button class="btn btn-ghost btn-sm" onclick="closeModal('quickModal')">取消</button><button class="btn btn-primary btn-sm" onclick="quickCreateProject()">一键创建</button></div>
 </div></div>
 
 <script>
@@ -1095,14 +1116,77 @@ function deleteLink(){dell(document.getElementById('linkEditId').value);closeMod
 function closeModal(m){document.getElementById(m).classList.remove('show')}
 function openFolder(p){if(!p)return;var a=document.createElement('a');a.href='file://'+encodeURI(p);a.click();setTimeout(()=>a.remove(),100)}
 function refreshSelects(){
-  var opts=D.projects.map(p=>`<option value="${p.id}">${e(p.name)}</option>`).join('');
+  var opts=D.projects.map(p=>'<option value="'+p.id+'">'+e(p.name)+'</option>').join('');
   document.getElementById('scProject').innerHTML='<option value="">无</option>'+opts;
-  document.getElementById('ideaProject').innerHTML='<option value="">无</option>'+opts;
-  var rvPrj=document.getElementById('reviewProject');if(rvPrj)rvPrj.innerHTML='<option value="">无</option>'+D.projects.map(function(p){return '<option value="'+e(p.name)+'">'+e(p.name)+'</option>'}).join('');
+  var rp=document.getElementById('reviewProject');if(rp)rp.innerHTML='<option value="">无</option>'+opts;
+  var pp=document.getElementById('progressProject');if(pp)pp.innerHTML=opts;
+  var fp=document.getElementById('financeProject');if(fp)fp.innerHTML=opts;
 }
 function exportData(){var b=new Blob([JSON.stringify(D,null,2)],{type:'application/json'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='拾叁工作台备份_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(u)}
 function importData(){var inp=document.createElement('input');inp.type='file';inp.accept='.json';inp.onchange=e=>{var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=()=>{try{var d=JSON.parse(r.result);if(d.projects&&d.scripts&&d.ideas&&d.links){if(confirm('导入将覆盖当前数据，确定？')){D=d;sv();RA()}}else alert('无效的备份格式')}catch(ex){alert('文件解析失败')}};r.readAsText(f)};inp.click()}
 function RA(){renderProjects();renderScripts();renderIdeas();renderLinks();renderReviews();renderProgress();renderFinances();US()}
+
+/* QUICK CREATE - 快速建项 */
+function openQuickCreateModal(){
+  document.getElementById('qcName').value='';
+  document.getElementById('qcAcct').value='wsy';
+  document.getElementById('qcBudget').value='0';
+  document.getElementById('qcDeadline').value='';
+  document.getElementById('qcPayDate').value='';
+  document.getElementById('qcPayAmount').value='0';
+  document.getElementById('qcNote').value='';
+  document.getElementById('quickModal').classList.add('show');
+}
+function quickCreateProject(){
+  var name=document.getElementById('qcName').value.trim();
+  if(!name)return alert('请输入项目名称');
+  var acct=document.getElementById('qcAcct').value;
+  var budget=parseFloat(document.getElementById('qcBudget').value)||0;
+  var deadline=document.getElementById('qcDeadline').value;
+  var payDate=document.getElementById('qcPayDate').value;
+  var payAmount=parseFloat(document.getElementById('qcPayAmount').value)||0;
+  var note=document.getElementById('qcNote').value.trim();
+  var today=new Date().toISOString().slice(0,10);
+  var created=[];
+
+  /* 1. 创建项目 */
+  var pid=gid('p');
+  D.projects.push({id:pid,name:name,path:'',status:'active',acct:acct,count:0,note:note,created:today});
+  created.push('项目：'+name);
+
+  /* 2. 创建脚本占位 */
+  var sid=gid('s');
+  D.scripts.push({id:sid,name:name+' 拍摄脚本',pid:pid,acct:acct,sections:[],shots:[],link:''});
+  created.push('脚本：'+name+' 拍摄脚本');
+
+  /* 3. 创建进度任务流水线 */
+  var tasks=[
+    {title:'策划构思',status:'todo'},
+    {title:'拍摄执行',status:'todo'},
+    {title:'剪辑制作',status:'todo'},
+    {title:'发布上线',status:'todo'}
+  ];
+  tasks.forEach(function(t){
+    D.progress.push({id:gid('pg'),title:t.title,project:name,status:t.status,deadline:deadline||'',note:'',acct:acct});
+  });
+  created.push('进度：'+tasks.length+' 条任务（策划→拍摄→剪辑→发布）');
+
+  /* 4. 创建财务记录 */
+  if(budget>0){
+    D.finances.push({id:gid('fn'),type:'expense',category:'预算支出',amount:budget,date:today,note:name+' 项目预算',project:name,acct:acct});
+    created.push('支出：预算 ¥'+budget);
+  }
+  if(payAmount>0&&payDate){
+    D.finances.push({id:gid('fn'),type:'income',category:'项目结款',amount:payAmount,date:payDate,note:name+' 结款收入',project:name,acct:acct});
+    created.push('收入：结款 ¥'+payAmount+'（'+payDate+'）');
+  }
+
+  sv();
+  refreshSelects();
+  RA();
+  closeModal('quickModal');
+  setTimeout(function(){alert('✅ 快速建项完成！\n\n已自动创建：\n'+created.join('\n'))},200);
+}
 
 /* REVIEWS - 数据复盘 */
 var accMap={'wsy':'📷 五拾叁','wmxz':'🎬 吴名小卒','zfdg':'📷 追风的光'};
