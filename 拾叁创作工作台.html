@@ -267,10 +267,44 @@ input,textarea,select{font-family:inherit;font-size:inherit}
 .acct-col .acct-mini-card .mc-stats span{white-space:nowrap}
 .acct-col .acct-mini-card .mc-amount{font-size:.86rem;font-weight:700;font-variant-numeric:tabular-nums}
 
+/* === CHART CONTAINERS === */
+.chart-container{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+.chart-container canvas{max-height:280px}
+.chart-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:16px}
+.chart-grid .chart-container{margin-bottom:0}
+@media(max-width:768px){.chart-grid{grid-template-columns:1fr}}
+
+/* === AI ANALYSIS === */
+.ai-panel{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+.ai-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.ai-header h3{font-size:.92rem;font-weight:600;display:flex;align-items:center;gap:6px}
+.ai-badge{font-size:.68rem;padding:2px 8px;border-radius:8px;background:var(--purple-dim);color:var(--purple);font-weight:500}
+.ai-content{font-size:.84rem;line-height:1.8;color:var(--text)}
+.ai-content p{margin-bottom:8px}
+.ai-content strong{color:var(--accent)}
+.ai-suggestion{background:var(--bg);border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:8px 0;font-size:.82rem}
+.ai-loading{display:flex;align-items:center;gap:8px;color:var(--text-dim);font-size:.82rem;padding:20px}
+.ai-loading .spinner{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* === BREAKDOWN === */
+.bd-stepper{display:flex;gap:0;margin-bottom:24px}
+.bd-step-indicator{flex:1;text-align:center;padding:10px 8px;font-size:.78rem;color:var(--text-dim);border-bottom:3px solid var(--border);cursor:pointer;transition:all .15s}
+.bd-step-indicator:hover{color:var(--text)}
+.bd-step-indicator.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+.bd-step-indicator.done{color:var(--green);border-bottom-color:var(--green)}
+.bd-step-indicator .step-num{display:inline-block;width:22px;height:22px;border-radius:50%;background:var(--border);color:#fff;font-size:.68rem;line-height:22px;margin-right:4px}
+.bd-step-indicator.active .step-num{background:var(--accent)}
+.bd-step-indicator.done .step-num{background:var(--green)}
+.bd-output{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;font-size:.84rem;line-height:1.8;white-space:pre-wrap;margin-top:14px}
+.bd-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:14px}
+.bd-card h4{font-size:.86rem;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
 <div class="app">
@@ -309,6 +343,8 @@ input,textarea,select{font-family:inherit;font-size:inherit}
   <button class="tab" onclick="switchTab('reviews')">数据复盘<span class="tab-count" id="tcReviews">0</span></button>
   <button class="tab" onclick="switchTab('progress')">项目进度<span class="tab-count" id="tcProgress">0</span></button>
   <button class="tab" onclick="switchTab('finance')">财务管理<span class="tab-count" id="tcFinance">0</span></button>
+  <button class="tab" onclick="switchTab('charts')" style="color:var(--blue)">📊 数据图表</button>
+  <button class="tab" onclick="switchTab('breakdown')" style="color:var(--purple)">🧩 需求拆解</button>
 </div>
 
 <!-- SECTION: projects -->
@@ -329,6 +365,7 @@ input,textarea,select{font-family:inherit;font-size:inherit}
     <h2>拍摄脚本</h2>
     <button class="btn btn-primary btn-sm" onclick="openAddScriptModal()">+ 新建脚本</button>
   </div>
+  <div id="aiScriptPanel"></div>
   <div class="acct-columns" id="scriptsColumns"></div>
 </div>
 
@@ -398,6 +435,7 @@ input,textarea,select{font-family:inherit;font-size:inherit}
     <button class="btn btn-primary btn-sm" onclick="openReviewModal()">+ 记录数据</button>
   </div>
   <div id="reviewSummary"></div>
+  <div id="aiAnalysisPanel"></div>
   <div class="acct-columns" id="reviewsColumns"></div>
 </div>
 
@@ -418,6 +456,30 @@ input,textarea,select{font-family:inherit;font-size:inherit}
   </div>
   <div id="financeSummary"></div>
   <div class="acct-columns" id="financeColumns"></div>
+</div>
+
+<!-- SECTION: charts -->
+<div class="panel" id="pnl-charts">
+  <div class="section-header">
+    <h2>数据图表</h2>
+    <select id="chartAcctFilter" onchange="renderCharts()" class="btn btn-ghost btn-sm" style="appearance:auto">
+      <option value="">全部账号</option>
+      <option value="wsy">📷 五拾叁</option>
+      <option value="wmxz">🎬 吴名小卒</option>
+      <option value="zfdg">📷 追风的光</option>
+    </select>
+  </div>
+  <div id="chartsReviewSection"></div>
+  <div id="chartsFinanceSection"></div>
+</div>
+
+<!-- SECTION: breakdown -->
+<div class="panel" id="pnl-breakdown">
+  <div class="section-header">
+    <h2>需求拆解</h2>
+    <button class="btn btn-primary btn-sm" onclick="openBreakdownModal()">+ 新建拆解</button>
+  </div>
+  <div id="breakdownList"></div>
 </div>
 
 </div>
@@ -525,10 +587,28 @@ input,textarea,select{font-family:inherit;font-size:inherit}
   <div class="modal-actions"><button class="btn btn-ghost btn-sm" onclick="closeModal('quickModal')">取消</button><button class="btn btn-primary btn-sm" onclick="quickCreateProject()">一键创建</button></div>
 </div></div>
 
+<!-- Breakdown Modal -->
+<div class="modal-overlay" id="bdModal"><div class="modal">
+  <h3>新建需求拆解</h3>
+  <div class="form-group"><label>标题</label><input id="bdTitle" placeholder="如：艾蒙拉MIC评测"></div>
+  <div class="form-group"><label>归属账号</label><select id="bdAcct"><option value="wsy">📷 五拾叁</option><option value="wmxz">🎬 吴名小卒</option><option value="zfdg">📷 追风的光</option></select></div>
+  <div class="form-group"><label>关联项目</label><select id="bdProject"></select></div>
+  <div class="form-group"><label>需求 Brief</label><textarea id="bdBrief" placeholder="客户/品牌需求描述、产品卖点、目标、时间要求等" style="min-height:100px"></textarea></div>
+  <div class="modal-actions"><button class="btn btn-ghost btn-sm" onclick="closeModal('bdModal')">取消</button><button class="btn btn-primary btn-sm" onclick="saveBreakdown()">开始拆解</button></div>
+</div></div>
+
+<!-- Breakdown Detail Modal -->
+<div class="modal-overlay" id="bdDetailModal"><div class="modal" style="max-width:640px">
+  <h3 id="bdDetailTitle">需求拆解</h3>
+  <div class="bd-stepper" id="bdDetailStepper"></div>
+  <div id="bdDetailBody"></div>
+  <div class="modal-actions"><button class="btn btn-ghost btn-sm" onclick="closeModal('bdDetailModal')">关闭</button></div>
+</div></div>
+
 <script>
 const S='cc-workspace-v2';
 const REMOTE_DATA='选题灵感数据.json';
-let D={projects:[],scripts:[],ideas:[],links:[],reviews:[],progress:[],finances:[]};
+let D={projects:[],scripts:[],ideas:[],links:[],reviews:[],progress:[],finances:[],breakdowns:[]};
 const base='/Users/wuxuguang/Desktop';
 const st={active:'进行中',draft:'待启动',done:'已完成',idea:'构思中'};
 const sb={active:'badge-active',draft:'badge-draft',done:'badge-done',idea:'badge-idea'};
@@ -561,6 +641,7 @@ function L(){
         if(Array.isArray(cached.reviews))D.reviews=cached.reviews;
         if(Array.isArray(cached.progress))D.progress=cached.progress;
         if(Array.isArray(cached.finances))D.finances=cached.finances;
+        if(Array.isArray(cached.breakdowns))D.breakdowns=cached.breakdowns;
         sv()
       }else{sv()}
     }else{sv()}
@@ -643,7 +724,8 @@ function I(){
     ],
     reviews:[],
     progress:[],
-    finances:[]
+    finances:[],
+    breakdowns:[]
   }
 }
 
@@ -655,12 +737,13 @@ function ea(s){return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;')
 function switchTab(t){
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
-  var m={projects:0,scripts:1,ideas:2,links:3,reviews:4,progress:5,finance:6};
+  var m={projects:0,scripts:1,ideas:2,links:3,reviews:4,progress:5,finance:6,charts:7,breakdown:8};
   document.querySelectorAll('.tab')[m[t]].classList.add('active');
   document.getElementById('pnl-'+t).classList.add('active');
   if(t==='projects')renderProjects();if(t==='scripts')renderScripts();
   if(t==='ideas')renderIdeas();if(t==='links')renderLinks();
   if(t==='reviews')renderReviews();if(t==='progress')renderProgress();if(t==='finance')renderFinances();
+  if(t==='charts')renderCharts();if(t==='breakdown')renderBreakdown();
 }
 
 /* STATS */
@@ -1124,7 +1207,7 @@ function refreshSelects(){
 }
 function exportData(){var b=new Blob([JSON.stringify(D,null,2)],{type:'application/json'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='拾叁工作台备份_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(u)}
 function importData(){var inp=document.createElement('input');inp.type='file';inp.accept='.json';inp.onchange=e=>{var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=()=>{try{var d=JSON.parse(r.result);if(d.projects&&d.scripts&&d.ideas&&d.links){if(confirm('导入将覆盖当前数据，确定？')){D=d;sv();RA()}}else alert('无效的备份格式')}catch(ex){alert('文件解析失败')}};r.readAsText(f)};inp.click()}
-function RA(){renderProjects();renderScripts();renderIdeas();renderLinks();renderReviews();renderProgress();renderFinances();US()}
+function RA(){renderProjects();renderScripts();renderIdeas();renderLinks();renderReviews();renderProgress();renderFinances();renderBreakdown();renderAIAnalysis();US()}
 
 /* QUICK CREATE - 快速建项 */
 function openQuickCreateModal(){
@@ -1188,6 +1271,222 @@ function quickCreateProject(){
   setTimeout(function(){alert('✅ 快速建项完成！\n\n已自动创建：\n'+created.join('\n'))},200);
 }
 
+/* CHARTS - 数据图表 */
+var _chartInstances={};
+function destroyCharts(){Object.keys(_chartInstances).forEach(function(k){if(_chartInstances[k]){_chartInstances[k].destroy();_chartInstances[k]=null}})}
+function renderCharts(){
+  destroyCharts();
+  var f=document.getElementById('chartAcctFilter').value;
+  var reviews=(D.reviews||[]).filter(function(r){return !f||r.acct===f}).slice().sort(function(a,b){return(a.date||'').localeCompare(b.date||'')});
+  var finances=(D.finances||[]).filter(function(x){return !f||x.acct===f}).slice().sort(function(a,b){return(a.date||'').localeCompare(b.date||'')});
+  var rSec=document.getElementById('chartsReviewSection');
+  var fSec=document.getElementById('chartsFinanceSection');
+  if(!reviews.length){
+    rSec.innerHTML='<div class="empty-state"><div class="icon">📊</div><p>暂无复盘数据，先在「数据复盘」中记录</p></div>';
+  }else{
+    rSec.innerHTML='<h3 style="font-size:.9rem;font-weight:600;margin-bottom:14px">📈 复盘数据趋势</h3>'+
+      '<div class="chart-grid">'+
+        '<div class="chart-container"><h4 style="font-size:.82rem;font-weight:600;margin-bottom:10px">播放量趋势</h4><canvas id="chartViews"></canvas></div>'+
+        '<div class="chart-container"><h4 style="font-size:.82rem;font-weight:600;margin-bottom:10px">互动量趋势（赞+评+藏+转）</h4><canvas id="chartEngagement"></canvas></div>'+
+      '</div>'+
+      '<div class="chart-container"><h4 style="font-size:.82rem;font-weight:600;margin-bottom:10px">各账号播放量对比</h4><canvas id="chartAcctCompare"></canvas></div>';
+    var labels=reviews.map(function(r){return r.date||''});
+    var views=reviews.map(function(r){return Number(r.views)||0});
+    var engs=reviews.map(function(r){return(Number(r.likes)||0)+(Number(r.comments)||0)+(Number(r.favorites)||0)+(Number(r.shares)||0)});
+    _chartInstances.views=new Chart(document.getElementById('chartViews'),{type:'line',data:{labels:labels,datasets:[{label:'播放量',data:views,borderColor:'#5b8cbf',backgroundColor:'rgba(91,140,191,.1)',fill:true,tension:.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+    _chartInstances.eng=new Chart(document.getElementById('chartEngagement'),{type:'bar',data:{labels:labels,datasets:[{label:'互动量',data:engs,backgroundColor:'#6b9e7a'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+    var acctData={};
+    reviews.forEach(function(r){var a=r.acct||'其他';if(!acctData[a])acctData[a]=0;acctData[a]+=(Number(r.views)||0)});
+    _chartInstances.acct=new Chart(document.getElementById('chartAcctCompare'),{type:'doughnut',data:{labels:Object.keys(acctData).map(function(k){return accMap[k]||k}),datasets:[{data:Object.values(acctData),backgroundColor:['#d4745c','#8b7aaf','#6b9e7a','#c4a24c']}]},options:{responsive:true,maintainAspectRatio:false}});
+  }
+  if(!finances.length){
+    fSec.innerHTML='<div class="empty-state"><div class="icon">💰</div><p>暂无财务数据，先在「财务管理」中记账</p></div>';
+  }else{
+    var months={};
+    finances.forEach(function(x){if(x.date){var ym=x.date.slice(0,7);if(!months[ym])months[ym]={income:0,expense:0};months[ym][x.type]+=(Number(x.amount)||0)}});
+    var mLabels=Object.keys(months).sort();
+    var mIncome=mLabels.map(function(m){return months[m].income});
+    var mExpense=mLabels.map(function(m){return months[m].expense});
+    fSec.innerHTML='<h3 style="font-size:.9rem;font-weight:600;margin:24px 0 14px">💰 收支趋势</h3>'+
+      '<div class="chart-container"><h4 style="font-size:.82rem;font-weight:600;margin-bottom:10px">月度收入 vs 支出</h4><canvas id="chartFinance"></canvas></div>';
+    _chartInstances.fin=new Chart(document.getElementById('chartFinance'),{type:'bar',data:{labels:mLabels.map(function(m){return parseInt(m.split('-')[1])+'月'}),datasets:[{label:'收入',data:mIncome,backgroundColor:'#6b9e7a'},{label:'支出',data:mExpense,backgroundColor:'#d4745c'}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}});
+  }
+}
+
+/* AI ANALYSIS - 智能分析 */
+function analyzeReviews(){
+  var reviews=(D.reviews||[]).slice().sort(function(a,b){return(b.date||'').localeCompare(a.date||'')});
+  if(reviews.length===0)return '<p style="color:var(--text-muted);font-size:.82rem">暂无复盘数据，记录后即可生成智能分析</p>';
+  var analysis=[];
+  var best=reviews[0],worst=reviews[reviews.length-1];
+  reviews.forEach(function(r){var eng=getEngagementLevel(r);var bestEng=getEngagementLevel(best);var worstEng=getEngagementLevel(worst);if(eng>bestEng)best=r;if(eng<worstEng)worst=r;});
+  var bestEng=getEngagementLevel(best),worstEng=getEngagementLevel(worst);
+  analysis.push('<div class="ai-suggestion"><strong>🏆 表现最佳：</strong>'+e(best.title)+'（互动率'+bestEng.toFixed(2)+'%）'+(best.reflection?' — '+e(best.reflection):'')+'</div>');
+  if(worst&&worst.id!==best.id)analysis.push('<div class="ai-suggestion"><strong>📉 待提升：</strong>'+e(worst.title)+'（互动率'+worstEng.toFixed(2)+'%）'+(worst.reflection?' — '+e(worst.reflection):'')+'</div>');
+  var platStats={};
+  reviews.forEach(function(r){var p=r.platform||'未知';if(!platStats[p])platStats[p]={count:0,views:0,eng:0};platStats[p].count++;platStats[p].views+=Number(r.views)||0;platStats[p].eng+=(Number(r.likes)||0)+(Number(r.comments)||0)+(Number(r.favorites)||0)+(Number(r.shares)||0);});
+  var bestPlat='',bestPlatEng=0;
+  Object.keys(platStats).forEach(function(p){var s=platStats[p];var avgEng=s.views>0?(s.eng/s.views*100):0;if(avgEng>bestPlatEng){bestPlatEng=avgEng;bestPlat=p}});
+  if(bestPlat)analysis.push('<p><strong>📊 平台洞察：</strong>'+e(bestPlat)+'平台平均互动率最高（'+bestPlatEng.toFixed(2)+'%），建议优先在该平台发力。</p>');
+  if(reviews.length>=3){
+    var half=Math.floor(reviews.length/2);
+    var oldRev=reviews.slice(half),newRev=reviews.slice(0,half);
+    var oldAvg=oldRev.reduce(function(s,r){return s+Number(r.views||0)},0)/oldRev.length;
+    var newAvg=newRev.reduce(function(s,r){return s+Number(r.views||0)},0)/newRev.length;
+    var change=((newAvg-oldAvg)/oldAvg*100);
+    if(isFinite(change)&&Math.abs(change)>5){
+      var dir=change>0?'上升':'下降';
+      analysis.push('<p><strong>📈 播放量趋势：</strong>近期作品平均播放量'+dir+' '+Math.abs(change).toFixed(1)+'%，'+(change>0?'继续保持当前内容方向！':'建议调整选题和发布策略。')+'</p>');
+    }
+  }
+  var avgViews=reviews.reduce(function(s,r){return s+(Number(r.views)||0)},0)/reviews.length;
+  var avgEng=reviews.reduce(function(s,r){return s+getEngagementLevel(r)},0)/reviews.length;
+  analysis.push('<p><strong>💡 优化建议：</strong>');
+  if(avgEng<2)analysis.push('当前平均互动率'+avgEng.toFixed(2)+'%偏低，建议在视频前3秒设置更强钩子，结尾增加互动引导（提问/投票/关注提示）。');
+  else if(avgEng<5)analysis.push('当前平均互动率'+avgEng.toFixed(2)+'%中等，建议尝试评论区置顶互动、增加系列化内容提升粉丝粘性。');
+  else analysis.push('当前平均互动率'+avgEng.toFixed(2)+'%表现优秀！建议探索商业合作变现，同时保持内容质量。');
+  analysis.push('</p>');
+  return analysis.join('');
+}
+function renderAIAnalysis(){
+  var panel=document.getElementById('aiAnalysisPanel');
+  if(!panel)return;
+  panel.innerHTML='<div class="ai-panel"><div class="ai-header"><h3>🤖 AI 智能分析</h3><span class="ai-badge">复盘洞察</span></div><div class="ai-content">'+analyzeReviews()+'</div></div>';
+}
+
+/* BREAKDOWN - 需求拆解 */
+var _bdStep=1;
+var _bdData={};
+function renderBreakdown(){
+  var list=D.breakdowns||[];
+  var g=document.getElementById('breakdownList');
+  if(!list.length){g.innerHTML='<div class="empty-state"><div class="icon">🧩</div><p>暂无拆解任务</p><button class="btn btn-primary btn-sm" onclick="openBreakdownModal()">创建第一个</button></div>';return}
+  g.innerHTML=list.map(function(b){
+    var steps=['需求','大纲','清单','脚本'];
+    var stepHtml=steps.map(function(s,i){
+      var cls=i<(b.step||1)?'done':i===(b.step-1)?'active':'';
+      return '<span class="bd-step-indicator '+cls+'" onclick="openBreakdownDetail(\''+b.id+'\','+(i+1)+')"><span class="step-num">'+(i+1)+'</span>'+s+'</span>';
+    }).join('');
+    return '<div class="bd-card"><h4>🧩 '+e(b.title)+'</h4>'+
+      '<div class="bd-stepper">'+stepHtml+'</div>'+
+      (b.brief?'<div style="font-size:.82rem;color:var(--text-dim);margin-bottom:10px;padding:8px 12px;background:var(--bg);border-radius:var(--radius-xs)"><strong>需求摘要：</strong>'+e(b.brief.slice(0,100))+(b.brief.length>100?'…':'')+'</div>':'')+
+      '<div style="display:flex;gap:6px"><button class="btn btn-primary btn-xs" onclick="openBreakdownDetail(\''+b.id+'\','+(b.step||1)+')">继续拆解</button><button class="btn btn-ghost btn-xs" onclick="deleteBreakdown(\''+b.id+'\')">删除</button></div>'+
+    '</div>';
+  }).join('');
+}
+function openBreakdownModal(){
+  document.getElementById('bdTitle').value='';
+  document.getElementById('bdBrief').value='';
+  document.getElementById('bdAcct').value='wsy';
+  document.getElementById('bdProject').innerHTML='<option value="">无</option>'+D.projects.map(function(p){return '<option value="'+e(p.name)+'">'+e(p.name)+'</option>'}).join('');
+  document.getElementById('bdModal').classList.add('show');
+}
+function saveBreakdown(){
+  var title=document.getElementById('bdTitle').value.trim();
+  if(!title)return alert('请输入标题');
+  var b={id:gid('bd'),title:title,brief:document.getElementById('bdBrief').value.trim(),acct:document.getElementById('bdAcct').value,project:document.getElementById('bdProject').value,step:1,outline:'',shotlist:'',script:'',created:new Date().toISOString().slice(0,10)};
+  D.breakdowns.push(b);sv();renderBreakdown();closeModal('bdModal');
+}
+function deleteBreakdown(id){if(!confirm('确定删除此拆解？'))return;D.breakdowns=(D.breakdowns||[]).filter(function(b){return b.id!==id});sv();renderBreakdown();}
+function openBreakdownDetail(id,step){
+  var b=(D.breakdowns||[]).find(function(x){return x.id===id});
+  if(!b)return;
+  _bdStep=step||1;
+  _bdData=b;
+  var steps=['需求Brief','大纲规划','拍摄清单','脚本生成'];
+  var modal=document.getElementById('bdDetailModal');
+  document.getElementById('bdDetailTitle').textContent=b.title+' — '+steps[_bdStep-1];
+  var stepHtml=steps.map(function(s,i){
+    var cls=i<(_bdStep-1)?'done':i===(_bdStep-1)?'active':'';
+    return '<span class="bd-step-indicator '+cls+'" onclick="_bdStep='+(i+1)+';openBreakdownDetail(\''+b.id+'\','+(i+1)+')"><span class="step-num">'+(i+1)+'</span>'+s+'</span>';
+  }).join('');
+  document.getElementById('bdDetailStepper').innerHTML=stepHtml;
+  var body=document.getElementById('bdDetailBody');
+  if(_bdStep===1){
+    body.innerHTML='<div class="form-group"><label>需求 Brief</label><textarea id="bdEditBrief" style="min-height:120px">'+e(b.brief||'')+'</textarea></div>'+
+      '<button class="btn btn-primary btn-sm" onclick="saveBreakdownStep(1)">保存并生成大纲</button>';
+  }else if(_bdStep===2){
+    body.innerHTML=(b.outline?'<div class="bd-output">'+e(b.outline)+'</div>':'<p style="color:var(--text-muted);font-size:.82rem">点击下方按钮自动生成大纲</p>')+
+      '<button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="generateOutline()">🤖 AI 生成大纲</button>';
+  }else if(_bdStep===3){
+    body.innerHTML=(b.shotlist?'<div class="bd-output">'+e(b.shotlist)+'</div>':'<p style="color:var(--text-muted);font-size:.82rem">点击下方按钮自动生成拍摄清单</p>')+
+      '<button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="generateShotlist()">🤖 AI 生成拍摄清单</button>';
+  }else if(_bdStep===4){
+    body.innerHTML=(b.script?'<div class="bd-output">'+e(b.script)+'</div>':'<p style="color:var(--text-muted);font-size:.82rem">点击下方按钮自动生成脚本</p>')+
+      '<button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="generateScript()">🤖 AI 生成脚本</button>'+
+      (b.script?'<button class="btn btn-ghost btn-sm" style="margin-top:12px;margin-left:8px" onclick="exportScriptToScripts(\''+b.id+'\')">📋 导入到脚本管理</button>':'');
+  }
+  modal.classList.add('show');
+}
+function saveBreakdownStep(step){
+  var b=_bdData;if(!b)return;
+  if(step===1){
+    b.brief=document.getElementById('bdEditBrief').value.trim();
+    if(!b.brief)return alert('请填写需求Brief');
+    b.step=2;sv();openBreakdownDetail(b.id,2);
+  }
+}
+function generateOutline(){
+  var b=_bdData;if(!b||!b.brief)return;
+  var brief=b.brief;
+  var acctName=accMap[b.acct]||'';
+  var lines=brief.split(/[\n，。、；]/).filter(function(s){return s.trim().length>2});
+  var outline='【视频定位】\n'+acctName+'账号内容，'+(brief.indexOf('评测')>=0?'产品评测类':brief.indexOf('教程')>=0?'教程分享类':brief.indexOf('开箱')>=0?'开箱体验类':brief.indexOf('VLOG')>=0||brief.indexOf('vlog')>=0?'VLOG记录类':'创意内容类')+'\n\n';
+  outline+='【核心信息】\n';
+  lines.slice(0,5).forEach(function(l,i){outline+=(i+1)+'. '+l.trim()+'\n'});
+  outline+='\n【叙事结构】\n';
+  outline+='第一幕（0-5秒）：黄金开场，用最强视觉/对比/悬念抓住注意力\n';
+  outline+='第二幕（5-20秒）：产品/主题展示，核心卖点或内容主体\n';
+  outline+='第三幕（20-40秒）：深入体验/实测/教程演示\n';
+  outline+='第四幕（40-60秒）：总结评价+互动引导\n';
+  outline+='\n【目标受众】\n';
+  var aud='对'+(brief.indexOf('数码')>=0||brief.indexOf('相机')>=0||brief.indexOf('设备')>=0?'数码科技':'生活创意')+'感兴趣的年轻用户群体';
+  outline+=aud+'\n';
+  b.outline=outline;b.step=3;sv();openBreakdownDetail(b.id,2);
+}
+function generateShotlist(){
+  var b=_bdData;if(!b||!b.outline)return alert('请先生成大纲');
+  var list='【拍摄清单】\n\n';
+  list+='1. 开场镜头（5秒）\n   - 场景：桌面/工作台/户外（根据内容定）\n   - 景别：特写→全景快切\n   - 备注：用对比或悬念画面开场\n\n';
+  list+='2. 产品/主体展示（10秒）\n   - 场景：正面/45度/侧面三角度\n   - 景别：中景+特写交替\n   - 备注：展示外观细节和核心功能\n\n';
+  list+='3. 实测/演示（15秒）\n   - 场景：实际使用环境\n   - 景别：中景+过肩\n   - 备注：真实体验，拍出使用过程和效果\n\n';
+  list+='4. 效果对比（10秒）\n   - 场景：使用前 vs 使用后\n   - 景别：同机位对比\n   - 备注：对比是最有力的说服\n\n';
+  list+='5. 总结+引导（5秒）\n   - 场景：出镜口播/产品定格\n   - 景别：中景\n   - 备注：一句话总结+关注/点赞引导\n\n';
+  list+='【设备建议】\n';
+  list+='相机：'+(b.acct==='wsy'?'适合展示产品细节的微单+微距镜头':b.acct==='wmxz'?'适合动态拍摄的相机+稳定器':'便携Vlog相机')+'\n';
+  list+='灯光：'+(b.acct==='wsy'?'主光+辅光+轮廓光三灯setup':'自然光为主，补光灯备用')+'\n';
+  list+='收音：领夹麦克风（口播清晰）';
+  b.shotlist=list;b.step=4;sv();openBreakdownDetail(b.id,3);
+}
+function generateScript(){
+  var b=_bdData;if(!b||!b.shotlist)return alert('请先生成拍摄清单');
+  var brief=b.brief||'';
+  var title=b.title||'';
+  var script='【'+title+' 完整脚本】\n\n';
+  script+='━━━ 第一幕：黄金开场（0-5秒）━━━\n\n';
+  script+='[画面] 对比画面/悬念画面，制造视觉冲击\n';
+  script+='[口播] 你是不是也遇到过'+(brief.indexOf('光')>=0?'打光不好':brief.indexOf('收音')>=0?'收音差':brief.indexOf('调色')>=0?'调色难':'这个问题')+'？今天这个视频帮你解决。\n\n';
+  script+='━━━ 第二幕：产品展示（5-20秒）━━━\n\n';
+  script+='[画面] 产品多角度展示，特写关键细节\n';
+  script+='[口播] 先来看'+title+'，'+(brief.slice(0,50))+'。\n\n';
+  script+='━━━ 第三幕：实测演示（20-40秒）━━━\n\n';
+  script+='[画面] 实际使用场景，展示操作过程和效果\n';
+  script+='[口播] 实际体验下来，最让我惊喜的是'+(brief.indexOf('便携')>=0?'它的便携性':brief.indexOf('性价比')>=0?'它的性价比':brief.indexOf('效果')>=0?'实际效果':'它的综合表现')+'。\n\n';
+  script+='━━━ 第四幕：总结引导（40-60秒）━━━\n\n';
+  script+='[画面] 出镜总结/产品定格\n';
+  script+='[口播] 总结一下，'+title+'适合'+(brief.indexOf('入门')>=0?'入门用户':brief.indexOf('专业')>=0?'专业用户':'大多数用户')+'。如果你也在找这样的'+(brief.indexOf('设备')>=0?'设备':brief.indexOf('教程')>=0?'教程':'产品')+'，可以考虑。关注我，下期见！\n\n';
+  script+='[备注] 以上脚本为AI自动生成初稿，请根据实际情况调整口播措辞和拍摄细节。';
+  b.script=script;b.step=4;sv();openBreakdownDetail(b.id,4);
+}
+function exportScriptToScripts(bid){
+  var b=(D.breakdowns||[]).find(function(x){return x.id===bid});
+  if(!b||!b.script)return;
+  var sid=gid('s');
+  D.scripts.push({id:sid,name:b.title+' 脚本',pid:'',acct:b.acct||'wsy',sections:[{part:'完整脚本',shots:[{lens:'AI生成脚本',text:b.script}]}],shots:[],link:''});
+  sv();renderScripts();US();
+  alert('已导入到脚本管理 → '+(accMap[b.acct]||'五拾叁')+' 列');
+}
+
 /* REVIEWS - 数据复盘 */
 var accMap={'wsy':'📷 五拾叁','wmxz':'🎬 吴名小卒','zfdg':'📷 追风的光'};
 var _reviewSortDesc=true;
@@ -1234,6 +1533,7 @@ function renderReviews(){
       '</div>'+
     '</div>';
   }).join('');
+  renderAIAnalysis();
 }
 var _editingReview=null;
 function openReviewModal(id){
@@ -1415,7 +1715,7 @@ document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('clic
 /* INIT */
 L();
 document.getElementById('todayDate').textContent=new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
-US();renderProjects();refreshSelects();renderReviews();renderProgress();renderFinances();
+US();renderProjects();refreshSelects();renderReviews();renderProgress();renderFinances();renderBreakdown();
 </script>
 </body>
 </html>
