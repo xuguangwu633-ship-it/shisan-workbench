@@ -300,6 +300,91 @@ input,textarea,select{font-family:inherit;font-size:inherit}
 .bd-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:14px}
 .bd-card h4{font-size:.86rem;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:6px}
 
+/* === GLOBAL SEARCH === */
+.search-wrap{position:relative;display:flex;align-items:center}
+.search-input{padding:6px 12px;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-xs);color:var(--text);font-size:.78rem;outline:none;width:220px;transition:width .2s}
+.search-input:focus{width:280px;border-color:var(--accent)}
+.search-results{position:absolute;top:100%;left:0;right:0;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-xs);box-shadow:var(--shadow-lg);max-height:360px;overflow-y:auto;z-index:50;display:none;margin-top:4px}
+.search-results.show{display:block}
+.search-result-item{padding:8px 12px;font-size:.78rem;cursor:pointer;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.search-result-item:hover{background:var(--card-hover)}
+.search-result-item:last-child{border-bottom:none}
+.search-result-icon{font-size:14px;flex-shrink:0}
+.search-result-text{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.search-result-type{font-size:.64rem;color:var(--text-muted);flex-shrink:0}
+
+/* === EXPORT DROPDOWN === */
+.export-dropdown{position:relative;display:inline-block}
+.export-menu{position:absolute;top:100%;right:0;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-xs);box-shadow:var(--shadow-lg);min-width:120px;z-index:50;display:none;margin-top:4px}
+.export-menu.show{display:block}
+.export-menu-item{display:block;padding:8px 14px;font-size:.78rem;color:var(--text-dim);cursor:pointer;border-bottom:1px solid var(--border);transition:all .12s}
+.export-menu-item:hover{background:var(--card-hover);color:var(--text)}
+.export-menu-item:last-child{border-bottom:none}
+
+/* === HOTSPOTS === */
+.hotspot-section{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:16px}
+.hotspot-section h3{font-size:.88rem;font-weight:600;margin-bottom:14px}
+.hotspot-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--bg);border-radius:var(--radius-sm);margin-bottom:6px;cursor:pointer;transition:all .15s;font-size:.82rem}
+.hotspot-item:hover{border-color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.hotspot-item .hi-title{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hotspot-item .hi-hot{font-size:.68rem;color:var(--text-muted);flex-shrink:0;margin-left:8px}
+.hotspot-item .hi-save{font-size:.68rem;color:var(--blue);flex-shrink:0;margin-left:8px;cursor:pointer}
+.hotspot-item .hi-save:hover{color:var(--accent)}
+
+/* === CLIENT/TEAM CARDS === */
+.entity-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.entity-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);transition:all .15s;cursor:pointer}
+.entity-card:hover{border-color:var(--blue);box-shadow:var(--shadow-lg)}
+.entity-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:#fff;flex-shrink:0}
+.entity-name{font-size:.88rem;font-weight:600;margin-bottom:4px}
+.entity-info{font-size:.74rem;color:var(--text-dim);margin-bottom:4px}
+.entity-meta{font-size:.72rem;color:var(--text-muted)}
+
+/* === TOGGLE SWITCH === */
+.toggle{position:relative;display:inline-block;width:36px;height:20px}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;cursor:pointer;inset:0;background:var(--border);border-radius:20px;transition:.2s}
+.toggle-slider:before{content:"";position:absolute;height:14px;width:14px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s}
+.toggle input:checked+.toggle-slider{background:var(--green)}
+.toggle input:checked+.toggle-slider:before{transform:translateX(16px)}
+
+/* === WORKFLOW CARDS === */
+.wf-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:12px}
+.wf-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.wf-card-title{font-size:.86rem;font-weight:600}
+.wf-card-desc{font-size:.76rem;color:var(--text-dim)}
+
+/* === VERSION HISTORY === */
+.version-list-item{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--bg);border-radius:var(--radius-xs);margin-bottom:6px;cursor:pointer;transition:all .15s;font-size:.78rem}
+.version-list-item:hover{border-color:var(--accent)}
+.version-list-item .vl-time{color:var(--text-dim)}
+.version-list-item .vl-info{color:var(--text-muted);font-size:.7rem}
+
+/* === DARK THEME === */
+body.dark{
+  --bg:#1a1a2e;--card-bg:#16213e;--card-hover:#1a2744;
+  --border:#2a3a5c;--text:#e0e0e0;--text-dim:#8b95a8;--text-muted:#5c6a7e;
+  --accent:#e8946a;--accent-dim:rgba(232,148,106,.12);
+  --blue:#6ba3d9;--blue-dim:rgba(107,163,217,.12);
+  --green:#7bb88a;--green-dim:rgba(123,184,138,.12);
+  --yellow:#d4b85e;--yellow-dim:rgba(212,184,94,.15);
+  --purple:#a494c4;--purple-dim:rgba(164,148,196,.12);
+  --shadow:0 1px 3px rgba(0,0,0,.15),0 4px 16px rgba(0,0,0,.1);
+  --shadow-lg:0 2px 8px rgba(0,0,0,.2),0 8px 32px rgba(0,0,0,.15)
+}
+body.dark input,body.dark textarea,body.dark select{background:#1e2a45;border-color:#2a3a5c;color:#e0e0e0}
+body.dark .modal{background:var(--card-bg)}
+body.dark .modal-overlay{background:rgba(0,0,0,.6)}
+
+/* === PRINT === */
+@media print{
+  .header,.stats,.tabs,.header-actions,.search-wrap,.export-dropdown{display:none!important}
+  .app{padding:0;max-width:100%}
+  .panel{display:block!important}
+  .panel:not(.active){display:none!important}
+  .chart-container,.acct-col,.bd-card,.entity-card,.wf-card,.hotspot-section{break-inside:avoid}
+}
+
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
@@ -319,7 +404,19 @@ input,textarea,select{font-family:inherit;font-size:inherit}
     </div>
   </div>
   <div class="header-actions">
-    <button class="btn btn-ghost btn-sm" onclick="exportData()">导出</button>
+    <div class="search-wrap">
+      <input class="search-input" id="globalSearchInput" placeholder="搜索项目/脚本/灵感…" oninput="globalSearch(this.value)" onkeydown="if(event.key==='Escape'){this.value='';globalSearch('')}" onblur="setTimeout(function(){document.getElementById('searchResultsPanel').classList.remove('show')},200)">
+      <div class="search-results" id="searchResultsPanel"></div>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="toggleTheme()" id="themeBtn">🌙</button>
+    <div class="export-dropdown">
+      <button class="btn btn-ghost btn-sm" onclick="document.getElementById('exportMenu').classList.toggle('show')">导出 ▾</button>
+      <div class="export-menu" id="exportMenu">
+        <div class="export-menu-item" onclick="exportData();document.getElementById('exportMenu').classList.remove('show')">JSON 备份</div>
+        <div class="export-menu-item" onclick="exportCSV();document.getElementById('exportMenu').classList.remove('show')">CSV 表格</div>
+        <div class="export-menu-item" onclick="exportPDF();document.getElementById('exportMenu').classList.remove('show')">PDF 打印</div>
+      </div>
+    </div>
     <button class="btn btn-ghost btn-sm" onclick="importData()">导入</button>
     <button class="btn btn-ghost btn-sm" onclick="openQuickCreateModal()" style="border-color:var(--blue);color:var(--blue)">⚡ 快速建项</button>
     <button class="btn btn-primary btn-sm" onclick="openAddProjectModal()">+ 新建项目</button>
@@ -345,6 +442,10 @@ input,textarea,select{font-family:inherit;font-size:inherit}
   <button class="tab" onclick="switchTab('finance')">财务管理<span class="tab-count" id="tcFinance">0</span></button>
   <button class="tab" onclick="switchTab('charts')" style="color:var(--blue)">📊 数据图表</button>
   <button class="tab" onclick="switchTab('breakdown')" style="color:var(--purple)">🧩 需求拆解</button>
+  <button class="tab" onclick="switchTab('hotspots')" style="color:#c8503c">🔥 热点追踪</button>
+  <button class="tab" onclick="switchTab('clients')" style="color:var(--green)">👥 客户管理</button>
+  <button class="tab" onclick="switchTab('team')" style="color:var(--blue)">🤝 团队协作</button>
+  <button class="tab" onclick="switchTab('workflow')" style="color:var(--yellow)">⚙️ 工作流</button>
 </div>
 
 <!-- SECTION: projects -->
@@ -482,6 +583,46 @@ input,textarea,select{font-family:inherit;font-size:inherit}
   <div id="breakdownList"></div>
 </div>
 
+<!-- SECTION: hotspots -->
+<div class="panel" id="pnl-hotspots">
+  <div class="section-header">
+    <h2>热点追踪</h2>
+    <button class="btn btn-ghost btn-sm" onclick="renderHotspots()">🔄 刷新</button>
+  </div>
+  <div id="hotspotsContent">
+    <div class="hotspot-section"><h3>🎵 抖音热榜</h3><div id="hotspotDouyin"><p style="font-size:.78rem;color:var(--text-muted)">点击刷新加载…</p></div></div>
+    <div class="hotspot-section"><h3>📕 小红书热点</h3><div id="hotspotXhs"><p style="font-size:.78rem;color:var(--text-muted)">点击刷新加载…</p></div></div>
+    <div class="hotspot-section"><h3>💡 知乎热榜</h3><div id="hotspotZhihu"><p style="font-size:.78rem;color:var(--text-muted)">点击刷新加载…</p></div></div>
+  </div>
+</div>
+
+<!-- SECTION: clients -->
+<div class="panel" id="pnl-clients">
+  <div class="section-header">
+    <h2>客户管理</h2>
+    <button class="btn btn-primary btn-sm" onclick="openClientModal()">+ 新建客户</button>
+  </div>
+  <div class="entity-grid" id="clientsGrid"></div>
+</div>
+
+<!-- SECTION: team -->
+<div class="panel" id="pnl-team">
+  <div class="section-header">
+    <h2>团队协作</h2>
+    <button class="btn btn-primary btn-sm" onclick="openTeamModal()">+ 添加成员</button>
+  </div>
+  <div class="entity-grid" id="teamGrid"></div>
+</div>
+
+<!-- SECTION: workflow -->
+<div class="panel" id="pnl-workflow">
+  <div class="section-header">
+    <h2>工作流自动化</h2>
+    <button class="btn btn-primary btn-sm" onclick="openAutomationModal()">+ 新建规则</button>
+  </div>
+  <div id="automationList"></div>
+</div>
+
 </div>
 
 <!-- MODALS -->
@@ -605,10 +746,54 @@ input,textarea,select{font-family:inherit;font-size:inherit}
   <div class="modal-actions"><button class="btn btn-ghost btn-sm" onclick="closeModal('bdDetailModal')">关闭</button></div>
 </div></div>
 
+<!-- Client Modal -->
+<div class="modal-overlay" id="clientModal"><div class="modal">
+  <h3 id="clientModalT">新建客户</h3>
+  <div class="form-group"><label>客户名称</label><input id="clientName"></div>
+  <div class="form-row"><div class="form-group"><label>公司/品牌</label><input id="clientCompany"></div><div class="form-group"><label>联系人</label><input id="clientContact"></div></div>
+  <div class="form-row"><div class="form-group"><label>电话</label><input id="clientPhone"></div><div class="form-group"><label>邮箱</label><input id="clientEmail"></div></div>
+  <div class="form-group"><label>关联项目</label><div id="clientProjects" style="max-height:120px;overflow-y:auto;border:1px solid var(--border);border-radius:var(--radius-xs);padding:8px"></div></div>
+  <div class="form-group"><label>备注</label><textarea id="clientNote"></textarea></div>
+  <div class="form-group"><label>状态</label><select id="clientStatus"><option value="active">活跃</option><option value="inactive"> inactive</option></select></div>
+  <input type="hidden" id="clientId">
+  <div class="modal-actions"><button class="btn btn-ghost btn-sm" onclick="closeModal('clientModal')">取消</button><button class="btn btn-danger btn-sm" id="clientDel" style="display:none" onclick="deleteClient()">删除</button><button class="btn btn-primary btn-sm" onclick="saveClient()">保存</button></div>
+</div></div>
+
+<!-- Team Modal -->
+<div class="modal-overlay" id="teamModal"><div class="modal">
+  <h3 id="teamModalT">添加成员</h3>
+  <div class="form-group"><label>姓名</label><input id="teamName"></div>
+  <div class="form-row"><div class="form-group"><label>角色</label><select id="teamRole"><option>摄影师</option><option>剪辑师</option><option>编导</option><option>文案</option><option>商务</option><option>其他</option></select></div><div class="form-group"><label>状态</label><select id="teamStatus"><option value="active">活跃</option><option value="inactive">停用</option></select></div></div>
+  <div class="form-row"><div class="form-group"><label>邮箱</label><input id="teamEmail"></div><div class="form-group"><label>电话</label><input id="teamPhone"></div></div>
+  <div class="form-group"><label>备注</label><textarea id="teamNote"></textarea></div>
+  <input type="hidden" id="teamId">
+  <div class="modal-actions"><button class="btn btn-ghost btn-sm" onclick="closeModal('teamModal')">取消</button><button class="btn btn-danger btn-sm" id="teamDel" style="display:none" onclick="deleteTeamMember()">删除</button><button class="btn btn-primary btn-sm" onclick="saveTeamMember()">保存</button></div>
+</div></div>
+
+<!-- Automation Modal -->
+<div class="modal-overlay" id="wfModal"><div class="modal">
+  <h3 id="wfModalT">新建自动化规则</h3>
+  <div class="form-group"><label>规则名称</label><input id="wfName" placeholder="如：发布提醒"></div>
+  <div class="form-group"><label>类型</label><select id="wfType" onchange="onWfTypeChange()"><option value="reminder">发布提醒</option><option value="payment">结款提醒</option><option value="daily">每日待办</option><option value="weekly">周报生成</option></select></div>
+  <div class="form-group" id="wfProjectGroup"><label>关联项目</label><select id="wfProject"></select></div>
+  <div class="form-group" id="wfDateGroup"><label>提醒日期</label><input type="date" id="wfDate"></div>
+  <div class="form-group"><label>备注</label><input id="wfNote"></div>
+  <input type="hidden" id="wfId">
+  <div class="modal-actions"><button class="btn btn-ghost btn-sm" onclick="closeModal('wfModal')">取消</button><button class="btn btn-danger btn-sm" id="wfDel" style="display:none" onclick="deleteAutomation()">删除</button><button class="btn btn-primary btn-sm" onclick="saveAutomation()">保存</button></div>
+</div></div>
+
+<!-- Version History Modal -->
+<div class="modal-overlay" id="versionModal"><div class="modal">
+  <h3>📋 版本历史</h3>
+  <p style="font-size:.78rem;color:var(--text-dim);margin-bottom:14px" id="versionModalSub"></p>
+  <div id="versionListBody"></div>
+  <div class="modal-actions"><button class="btn btn-ghost btn-sm" onclick="closeModal('versionModal')">关闭</button></div>
+</div></div>
+
 <script>
 const S='cc-workspace-v2';
 const REMOTE_DATA='选题灵感数据.json';
-let D={projects:[],scripts:[],ideas:[],links:[],reviews:[],progress:[],finances:[],breakdowns:[]};
+let D={projects:[],scripts:[],ideas:[],links:[],reviews:[],progress:[],finances:[],breakdowns:[],clients:[],team:[],automations:[]};
 const base='/Users/wuxuguang/Desktop';
 const st={active:'进行中',draft:'待启动',done:'已完成',idea:'构思中'};
 const sb={active:'badge-active',draft:'badge-draft',done:'badge-done',idea:'badge-idea'};
@@ -642,6 +827,9 @@ function L(){
         if(Array.isArray(cached.progress))D.progress=cached.progress;
         if(Array.isArray(cached.finances))D.finances=cached.finances;
         if(Array.isArray(cached.breakdowns))D.breakdowns=cached.breakdowns;
+        if(Array.isArray(cached.clients))D.clients=cached.clients;
+        if(Array.isArray(cached.team))D.team=cached.team;
+        if(Array.isArray(cached.automations))D.automations=cached.automations;
         sv()
       }else{sv()}
     }else{sv()}
@@ -725,7 +913,10 @@ function I(){
     reviews:[],
     progress:[],
     finances:[],
-    breakdowns:[]
+    breakdowns:[],
+    clients:[],
+    team:[],
+    automations:[]
   }
 }
 
@@ -737,13 +928,14 @@ function ea(s){return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;')
 function switchTab(t){
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
-  var m={projects:0,scripts:1,ideas:2,links:3,reviews:4,progress:5,finance:6,charts:7,breakdown:8};
+  var m={projects:0,scripts:1,ideas:2,links:3,reviews:4,progress:5,finance:6,charts:7,breakdown:8,hotspots:9,clients:10,team:11,workflow:12};
   document.querySelectorAll('.tab')[m[t]].classList.add('active');
   document.getElementById('pnl-'+t).classList.add('active');
   if(t==='projects')renderProjects();if(t==='scripts')renderScripts();
   if(t==='ideas')renderIdeas();if(t==='links')renderLinks();
   if(t==='reviews')renderReviews();if(t==='progress')renderProgress();if(t==='finance')renderFinances();
   if(t==='charts')renderCharts();if(t==='breakdown')renderBreakdown();
+  if(t==='hotspots')renderHotspots();if(t==='clients')renderClients();if(t==='team')renderTeam();if(t==='workflow')renderAutomations();
 }
 
 /* STATS */
@@ -837,7 +1029,7 @@ function renderScripts(){
                 '<div class="sc-pane" id="sc-pane-text-'+s.id+'">'+renderNarration(s)+'</div>'+
               '</div>'+
               '<div class="sc-pane" id="sc-mode-team-'+s.id+'">'+renderTeamShots(s)+'</div>'+
-              '<div class="shot-actions"><button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();openEditScriptModal(\''+s.id+'\')">编辑信息</button>'+(s.link?'<a class="btn btn-ghost btn-xs" href="'+ea(s.link)+'" target="_blank" onclick="event.stopPropagation()">📄 飞书文档</a>':'')+'</div>'+
+              '<div class="shot-actions"><button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();openEditScriptModal(\''+s.id+'\')">编辑信息</button>'+(s.versions&&s.versions.length?'<button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();openVersionHistory(\''+s.id+'\')">📋 版本('+s.versions.length+')</button>':'')+(s.link?'<a class="btn btn-ghost btn-xs" href="'+ea(s.link)+'" target="_blank" onclick="event.stopPropagation()">📄 飞书文档</a>':'')+'</div>'+
             '</div>'+
           '</div>';
         }).join(''):'<div class="acct-empty">暂无脚本</div>')+
@@ -1032,7 +1224,13 @@ function saveScript(){
   var id=document.getElementById('scId').value;
   var pid=document.getElementById('scProject').value;var s={name:document.getElementById('scName').value.trim(),pid:pid,link:document.getElementById('scLink').value.trim(),acct:pid?getProjectAcct(pid):(document.getElementById('scAcct').value||'wsy')};
   if(!s.name)return alert('请输入脚本名称');
-  if(id){var i=D.scripts.findIndex(x=>x.id===id);if(i>=0){s.id=id;s.sections=D.scripts[i].sections||[];s.shots=D.scripts[i].shots||[];s.teamShots=D.scripts[i].teamShots||[];D.scripts[i]=s}}
+  if(id){var i=D.scripts.findIndex(x=>x.id===id);if(i>=0){
+    /* 版本快照 */
+    if(!D.scripts[i].versions)D.scripts[i].versions=[];
+    var snap={time:new Date().toISOString().slice(0,16),shots:D.scripts[i].shots?JSON.parse(JSON.stringify(D.scripts[i].shots)):null,sections:D.scripts[i].sections?JSON.parse(JSON.stringify(D.scripts[i].sections)):null,teamShots:D.scripts[i].teamShots?JSON.parse(JSON.stringify(D.scripts[i].teamShots)):null};
+    D.scripts[i].versions.push(snap);
+    if(D.scripts[i].versions.length>10)D.scripts[i].versions.shift();
+    s.id=id;s.versions=D.scripts[i].versions;s.sections=D.scripts[i].sections||[];s.shots=D.scripts[i].shots||[];s.teamShots=D.scripts[i].teamShots||[];D.scripts[i]=s}}
   else{s.id=gid('s');s.sections=[];s.shots=[];D.scripts.push(s)}
   sv();closeModal('scModal');renderScripts();US()
 }
@@ -1207,7 +1405,7 @@ function refreshSelects(){
 }
 function exportData(){var b=new Blob([JSON.stringify(D,null,2)],{type:'application/json'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='拾叁工作台备份_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(u)}
 function importData(){var inp=document.createElement('input');inp.type='file';inp.accept='.json';inp.onchange=e=>{var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=()=>{try{var d=JSON.parse(r.result);if(d.projects&&d.scripts&&d.ideas&&d.links){if(confirm('导入将覆盖当前数据，确定？')){D=d;sv();RA()}}else alert('无效的备份格式')}catch(ex){alert('文件解析失败')}};r.readAsText(f)};inp.click()}
-function RA(){renderProjects();renderScripts();renderIdeas();renderLinks();renderReviews();renderProgress();renderFinances();renderBreakdown();renderAIAnalysis();US()}
+function RA(){renderProjects();renderScripts();renderIdeas();renderLinks();renderReviews();renderProgress();renderFinances();renderBreakdown();renderAIAnalysis();renderClients();renderTeam();renderAutomations();renderHotspots();US()}
 
 /* QUICK CREATE - 快速建项 */
 function openQuickCreateModal(){
@@ -1276,6 +1474,9 @@ var _chartInstances={};
 function destroyCharts(){Object.keys(_chartInstances).forEach(function(k){if(_chartInstances[k]){_chartInstances[k].destroy();_chartInstances[k]=null}})}
 function renderCharts(){
   destroyCharts();
+  var isDark=document.body.classList.contains('dark');
+  var gridColor=isDark?'rgba(255,255,255,.08)':'rgba(0,0,0,.06)';
+  var textColor=isDark?'#8b95a8':'#8b8478';
   var f=document.getElementById('chartAcctFilter').value;
   var reviews=(D.reviews||[]).filter(function(r){return !f||r.acct===f}).slice().sort(function(a,b){return(a.date||'').localeCompare(b.date||'')});
   var finances=(D.finances||[]).filter(function(x){return !f||x.acct===f}).slice().sort(function(a,b){return(a.date||'').localeCompare(b.date||'')});
@@ -1293,8 +1494,8 @@ function renderCharts(){
     var labels=reviews.map(function(r){return r.date||''});
     var views=reviews.map(function(r){return Number(r.views)||0});
     var engs=reviews.map(function(r){return(Number(r.likes)||0)+(Number(r.comments)||0)+(Number(r.favorites)||0)+(Number(r.shares)||0)});
-    _chartInstances.views=new Chart(document.getElementById('chartViews'),{type:'line',data:{labels:labels,datasets:[{label:'播放量',data:views,borderColor:'#5b8cbf',backgroundColor:'rgba(91,140,191,.1)',fill:true,tension:.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
-    _chartInstances.eng=new Chart(document.getElementById('chartEngagement'),{type:'bar',data:{labels:labels,datasets:[{label:'互动量',data:engs,backgroundColor:'#6b9e7a'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+    _chartInstances.views=new Chart(document.getElementById('chartViews'),{type:'line',data:{labels:labels,datasets:[{label:'播放量',data:views,borderColor:'#5b8cbf',backgroundColor:'rgba(91,140,191,.1)',fill:true,tension:.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:gridColor},ticks:{color:textColor}},x:{grid:{color:gridColor},ticks:{color:textColor}}}}});
+    _chartInstances.eng=new Chart(document.getElementById('chartEngagement'),{type:'bar',data:{labels:labels,datasets:[{label:'互动量',data:engs,backgroundColor:'#6b9e7a'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:gridColor},ticks:{color:textColor}},x:{grid:{color:gridColor},ticks:{color:textColor}}}}});
     var acctData={};
     reviews.forEach(function(r){var a=r.acct||'其他';if(!acctData[a])acctData[a]=0;acctData[a]+=(Number(r.views)||0)});
     _chartInstances.acct=new Chart(document.getElementById('chartAcctCompare'),{type:'doughnut',data:{labels:Object.keys(acctData).map(function(k){return accMap[k]||k}),datasets:[{data:Object.values(acctData),backgroundColor:['#d4745c','#8b7aaf','#6b9e7a','#c4a24c']}]},options:{responsive:true,maintainAspectRatio:false}});
@@ -1309,7 +1510,7 @@ function renderCharts(){
     var mExpense=mLabels.map(function(m){return months[m].expense});
     fSec.innerHTML='<h3 style="font-size:.9rem;font-weight:600;margin:24px 0 14px">💰 收支趋势</h3>'+
       '<div class="chart-container"><h4 style="font-size:.82rem;font-weight:600;margin-bottom:10px">月度收入 vs 支出</h4><canvas id="chartFinance"></canvas></div>';
-    _chartInstances.fin=new Chart(document.getElementById('chartFinance'),{type:'bar',data:{labels:mLabels.map(function(m){return parseInt(m.split('-')[1])+'月'}),datasets:[{label:'收入',data:mIncome,backgroundColor:'#6b9e7a'},{label:'支出',data:mExpense,backgroundColor:'#d4745c'}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}});
+    _chartInstances.fin=new Chart(document.getElementById('chartFinance'),{type:'bar',data:{labels:mLabels.map(function(m){return parseInt(m.split('-')[1])+'月'}),datasets:[{label:'收入',data:mIncome,backgroundColor:'#6b9e7a'},{label:'支出',data:mExpense,backgroundColor:'#d4745c'}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true,grid:{color:gridColor},ticks:{color:textColor}},x:{grid:{color:gridColor},ticks:{color:textColor}}}}});
   }
 }
 
@@ -1712,10 +1913,279 @@ function deleteFinance(id){if(!confirm('确定删除这条记录？'))return;D.f
 /* MODAL CLICK-OUTSIDE */
 document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',function(e){if(e.target===this)this.classList.remove('show')})});
 
+/* === GLOBAL SEARCH === */
+function globalSearch(q){
+  var panel=document.getElementById('searchResultsPanel');
+  if(!q||!q.trim()){panel.classList.remove('show');panel.innerHTML='';return}
+  q=q.trim().toLowerCase();
+  var results=[];
+  D.projects.forEach(function(p){if((p.name||'').toLowerCase().includes(q)||(p.note||'').toLowerCase().includes(q))results.push({type:'项目',icon:ic[p.status]||'📁',text:p.name,tab:'projects'})});
+  D.scripts.forEach(function(s){if((s.name||'').toLowerCase().includes(q))results.push({type:'脚本',icon:'📝',text:s.name,tab:'scripts'})});
+  (D.ideas||[]).forEach(function(i){if((i.title||'').toLowerCase().includes(q)||(i.content||'').toLowerCase().includes(q))results.push({type:'灵感',icon:'💡',text:i.title,tab:'ideas'})});
+  (D.reviews||[]).forEach(function(r){if((r.title||'').toLowerCase().includes(q))results.push({type:'复盘',icon:'📊',text:r.title,tab:'reviews'})});
+  (D.progress||[]).forEach(function(p){if((p.title||'').toLowerCase().includes(q))results.push({type:'进度',icon:'📋',text:p.title,tab:'progress'})});
+  (D.finances||[]).forEach(function(f){if((f.category||'').toLowerCase().includes(q)||(f.note||'').toLowerCase().includes(q))results.push({type:'财务',icon:'💰',text:f.category+' ¥'+f.amount,tab:'finance'})});
+  (D.breakdowns||[]).forEach(function(b){if((b.title||'').toLowerCase().includes(q))results.push({type:'拆解',icon:'🧩',text:b.title,tab:'breakdown'})});
+  (D.clients||[]).forEach(function(c){if((c.name||'').toLowerCase().includes(q)||(c.company||'').toLowerCase().includes(q))results.push({type:'客户',icon:'👤',text:c.name,tab:'clients'})});
+  if(!results.length){panel.innerHTML='<div class="search-result-item" style="color:var(--text-muted)">无结果</div>'}else{
+    panel.innerHTML=results.slice(0,20).map(function(r){return '<div class="search-result-item" onclick="switchTab(\''+r.tab+'\');document.getElementById(\'searchResultsPanel\').classList.remove(\'show\')"><span class="search-result-icon">'+r.icon+'</span><span class="search-result-text">'+e(r.text)+'</span><span class="search-result-type">'+r.type+'</span></div>'}).join('');
+  }
+  panel.classList.add('show');
+}
+
+/* === THEME === */
+function toggleTheme(){
+  document.body.classList.toggle('dark');
+  var isDark=document.body.classList.contains('dark');
+  localStorage.setItem('cc-theme',isDark?'dark':'light');
+  document.getElementById('themeBtn').textContent=isDark?'☀️':'🌙';
+  /* 重渲染图表适配深色 */
+  if(document.getElementById('pnl-charts').classList.contains('active'))renderCharts();
+}
+function loadTheme(){var t=localStorage.getItem('cc-theme');if(t==='dark'){document.body.classList.add('dark');document.getElementById('themeBtn').textContent='☀️'}}
+
+/* === CSV/PDF EXPORT === */
+function exportCSV(){
+  var bom='\ufeff';
+  /* 财务CSV */
+  var csv1=bom+'日期,类型,分类,金额,项目,说明\n';
+  (D.finances||[]).forEach(function(f){csv1+=[f.date||'',f.type==='income'?'收入':'支出',f.category||'',f.amount||'',f.project||'',f.note||''].map(function(v){v=String(v).replace(/"/g,'""');return v.indexOf(',')>=0||v.indexOf('\n')>=0?'"'+v+'"':v}).join(',')+'\n'});
+  var blob1=new Blob([csv1],{type:'text/csv;charset=utf-8'});
+  var a1=document.createElement('a');a1.href=URL.createObjectURL(blob1);a1.download='财务记录_'+new Date().toISOString().slice(0,10)+'.csv';a1.click();URL.revokeObjectURL(a1.href);
+  /* 复盘CSV */
+  var csv2=bom+'日期,标题,平台,播放量,点赞,评论,收藏,转发,互动率(%),反思\n';
+  (D.reviews||[]).forEach(function(r){var eng=getEngagementLevel(r).toFixed(2);csv2+=[r.date||'',r.title||'',r.platform||'',r.views||'',r.likes||'',r.comments||'',r.favorites||'',r.shares||'',eng,r.reflection||''].map(function(v){v=String(v).replace(/"/g,'""');return v.indexOf(',')>=0||v.indexOf('\n')>=0?'"'+v+'"':v}).join(',')+'\n'});
+  var blob2=new Blob([csv2],{type:'text/csv;charset=utf-8'});
+  var a2=document.createElement('a');a2.href=URL.createObjectURL(blob2);a2.download='复盘记录_'+new Date().toISOString().slice(0,10)+'.csv';a2.click();URL.revokeObjectURL(a2.href);
+}
+function exportPDF(){window.print()}
+
+/* === VERSION HISTORY === */
+function openVersionHistory(sid){
+  var s=D.scripts.find(function(x){return x.id===sid});if(!s||!s.versions||!s.versions.length)return;
+  document.getElementById('versionModalSub').textContent=s.name+' — 共 '+s.versions.length+' 个历史版本';
+  var body=document.getElementById('versionListBody');
+  body.innerHTML=s.versions.slice().reverse().map(function(v,i){
+    var idx=s.versions.length-1-i;
+    var shotCount=0;
+    if(v.sections)v.sections.forEach(function(sec){shotCount+=(sec.shots?sec.shots.length:0)});
+    if(v.shots)shotCount+=v.shots.length;
+    return '<div class="version-list-item" onclick="rollbackScript(\''+sid+'\','+idx+')"><span class="vl-time">'+e(v.time)+'</span><span class="vl-info">'+shotCount+' 分镜 · 点击回滚</span></div>';
+  }).join('');
+  document.getElementById('versionModal').classList.add('show');
+}
+function rollbackScript(sid,idx){
+  var s=D.scripts.find(function(x){return x.id===sid});if(!s||!s.versions||!s.versions[idx])return;
+  if(!confirm('确定回滚到此版本？当前版本会先保存为历史。'))return;
+  /* 先保存当前为快照 */
+  var snap={time:new Date().toISOString().slice(0,16)+'(回滚前)',shots:s.shots?JSON.parse(JSON.stringify(s.shots)):null,sections:s.sections?JSON.parse(JSON.stringify(s.sections)):null,teamShots:s.teamShots?JSON.parse(JSON.stringify(s.teamShots)):null};
+  if(!s.versions)s.versions=[];s.versions.push(snap);if(s.versions.length>10)s.versions.shift();
+  /* 回滚 */
+  var v=s.versions[idx];
+  s.shots=v.shots?JSON.parse(JSON.stringify(v.shots)):[];
+  s.sections=v.sections?JSON.parse(JSON.stringify(v.sections)):[];
+  s.teamShots=v.teamShots?JSON.parse(JSON.stringify(v.teamShots)):[];
+  sv();renderScripts();closeModal('versionModal');
+}
+
+/* === HOTSPOTS === */
+var _hotspotCache={};
+function renderHotspots(){
+  /* 抖音 */
+  fetchHotspot('douyin','https://www.douyin.com/aweme/v1/web/hot/search/list/','hotspotDouyin','🎵','douyin');
+  /* 小红书 */
+  fetchHotspot('xhs','https://edith.xiaohongshu.com/api/sns/v1/search/hot_list','hotspotXhs','📕','xhs');
+  /* 知乎 */
+  fetchHotspot('zhihu','https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=20','hotspotZhihu','💡','zhihu');
+}
+function fetchHotspot(key,url,elId,icon,platform){
+  var el=document.getElementById(elId);
+  if(!el)return;
+  /* 先渲染链接入口 */
+  var links={
+    douyin:[{title:'抖音热榜',url:'https://www.douyin.com/hot'}],
+    xhs:[{title:'小红书热点',url:'https://www.xiaohongshu.com/explore'}],
+    zhihu:[{title:'知乎热榜',url:'https://www.zhihu.com/hot'}]
+  };
+  var fallbackHtml=(links[platform]||[]).map(function(l){return '<div class="hotspot-item" onclick="window.open(\''+ea(l.url)+'\',\'_blank\')"><span class="hi-title">'+e(l.title)+'</span><span class="hi-hot">🔗 打开</span></div>'}).join('');
+  el.innerHTML='<p style="font-size:.74rem;color:var(--text-muted);margin-bottom:8px">尝试获取实时热点…</p>'+fallbackHtml;
+  /* 尝试 fetch */
+  try{
+    fetch(url,{mode:'cors',credentials:'omit'}).then(function(r){return r.json()}).then(function(data){
+      var items=[];
+      if(platform==='douyin'&&data&&data.data&&data.data.list){items=data.data.list.slice(0,15).map(function(x){return {title:x.word||x.title,hot:x.hot_value||''}})}
+      else if(platform==='zhihu'&&Array.isArray(data&&data.data)){items=data.data.slice(0,15).map(function(x){return {title:x.target?x.target.title:'',hot:x.detail_text||''}})}
+      if(items.length){
+        _hotspotCache[key]=items;
+        el.innerHTML=items.map(function(it){return '<div class="hotspot-item"><span class="hi-title">'+e(it.title)+'</span>'+(it.hot?'<span class="hi-hot">'+e(String(it.hot))+'</span>':'')+'<span class="hi-save" onclick="saveHotspotToIdea(\''+key+'\',\''+ea(it.title).replace(/'/g,'\\\'')+'\')">+ 收藏</span></div>'}).join('');
+      }
+    }).catch(function(){el.innerHTML=fallbackHtml});
+  }catch(e){el.innerHTML=fallbackHtml}
+}
+function saveHotspotToIdea(key,title){
+  var acct=key==='douyin'?'wsy':key==='xhs'?'wmxz':'zfdg';
+  var idea={id:gid('i'),title:title,content:'',videoText:'',tags:['热点','待整理'],source:'',acct:acct,created:new Date().toISOString().slice(0,10)};
+  D.ideas.unshift(idea);sv();renderIdeas();US();
+  alert('已收藏到选题灵感 → '+(accMap[acct]||acct));
+}
+
+/* === CLIENTS === */
+function renderClients(){
+  var list=D.clients||[];
+  var g=document.getElementById('clientsGrid');
+  if(!list.length){g.innerHTML='<div class="empty-state"><div class="icon">👥</div><p>暂无客户</p><button class="btn btn-primary btn-sm" onclick="openClientModal()">添加第一个</button></div>';return}
+  var colors=['#d4745c','#5b8cbf','#6b9e7a','#8b7aaf','#c4a24c'];
+  g.innerHTML=list.map(function(c,i){
+    var projCount=(c.projects||[]).filter(Boolean).length;
+    var bg=colors[i%colors.length];
+    return '<div class="entity-card" onclick="openClientModal(\''+c.id+'\')">'+
+      '<div style="display:flex;gap:12px;align-items:center;margin-bottom:10px">'+
+        '<div class="entity-avatar" style="background:'+bg+'">'+e((c.name||'?').charAt(0))+'</div>'+
+        '<div><div class="entity-name">'+e(c.name)+'</div><div class="entity-info">'+e(c.company||'')+'</div></div>'+
+      '</div>'+
+      (c.contact?'<div class="entity-info">👤 '+e(c.contact)+'</div>':'')+
+      (c.phone?'<div class="entity-info">📞 '+e(c.phone)+'</div>':'')+
+      (c.email?'<div class="entity-info">✉️ '+e(c.email)+'</div>':'')+
+      '<div class="entity-meta">📂 关联 '+projCount+' 个项目 · '+(c.status==='active'?'活跃':'停用')+'</div>'+
+    '</div>';
+  }).join('');
+}
+function openClientModal(id){
+  var c=id?(D.clients||[]).find(function(x){return x.id===id):null;
+  document.getElementById('clientModalT').textContent=c?'编辑客户':'新建客户';
+  document.getElementById('clientName').value=c?c.name:'';document.getElementById('clientCompany').value=c?c.company:'';
+  document.getElementById('clientContact').value=c?c.contact:'';document.getElementById('clientPhone').value=c?c.phone:'';
+  document.getElementById('clientEmail').value=c?c.email:'';document.getElementById('clientNote').value=c?c.note:'';
+  document.getElementById('clientStatus').value=c?c.status:'active';document.getElementById('clientId').value=c?c.id:'';
+  document.getElementById('clientDel').style.display=c?'inline-flex':'none';
+  var projHtml=D.projects.map(function(p){var checked=c&&c.projects&&c.projects.indexOf(p.name)>=0?'checked':'';return '<label style="display:block;font-size:.78rem;padding:3px 0"><input type="checkbox" value="'+e(p.name)+'" '+checked+'> '+e(p.name)+'</label>'}).join('');
+  document.getElementById('clientProjects').innerHTML=projHtml||'<span style="font-size:.74rem;color:var(--text-muted)">暂无项目</span>';
+  document.getElementById('clientModal').classList.add('show');
+}
+function saveClient(){
+  var id=document.getElementById('clientId').value;
+  var projs=[];document.querySelectorAll('#clientProjects input:checked').forEach(function(cb){projs.push(cb.value)});
+  var c={name:document.getElementById('clientName').value.trim(),company:document.getElementById('clientCompany').value.trim(),contact:document.getElementById('clientContact').value.trim(),phone:document.getElementById('clientPhone').value.trim(),email:document.getElementById('clientEmail').value.trim(),note:document.getElementById('clientNote').value.trim(),status:document.getElementById('clientStatus').value,projects:projs};
+  if(!c.name)return alert('请输入客户名称');
+  if(id){var idx=(D.clients||[]).findIndex(function(x){return x.id===id});if(idx>=0)D.clients[idx]=Object.assign(D.clients[idx],c,{id:id})}
+  else{c.id='cl'+Date.now();c.created=new Date().toISOString().slice(0,10);D.clients.push(c)}
+  sv();renderClients();closeModal('clientModal');
+}
+function deleteClient(){var id=document.getElementById('clientId').value;if(!confirm('确定删除？'))return;D.clients=D.clients.filter(function(c){return c.id!==id});sv();renderClients();closeModal('clientModal')}
+
+/* === TEAM === */
+function renderTeam(){
+  var list=D.team||[];
+  var g=document.getElementById('teamGrid');
+  if(!list.length){g.innerHTML='<div class="empty-state"><div class="icon">🤝</div><p>暂无成员</p><button class="btn btn-primary btn-sm" onclick="openTeamModal()">添加第一个</button></div>';return}
+  var roleColors={'摄影师':'#5b8cbf','剪辑师':'#6b9e7a','编导':'#d4745c','文案':'#8b7aaf','商务':'#c4a24c','其他':'#b8b0a0'};
+  g.innerHTML=list.map(function(m){
+    var bg=roleColors[m.role]||'#b8b0a0';
+    return '<div class="entity-card" onclick="openTeamModal(\''+m.id+'\')">'+
+      '<div style="display:flex;gap:12px;align-items:center;margin-bottom:10px">'+
+        '<div class="entity-avatar" style="background:'+bg+'">'+e((m.name||'?').charAt(0))+'</div>'+
+        '<div><div class="entity-name">'+e(m.name)+'</div><div class="entity-info">'+e(m.role||'')+'</div></div>'+
+      '</div>'+
+      (m.email?'<div class="entity-info">✉️ '+e(m.email)+'</div>':'')+
+      (m.phone?'<div class="entity-info">📞 '+e(m.phone)+'</div>':'')+
+      (m.note?'<div class="entity-info">📝 '+e(m.note)+'</div>':'')+
+      '<div class="entity-meta">'+(m.status==='active'?'活跃':'停用')+'</div>'+
+    '</div>';
+  }).join('');
+}
+function openTeamModal(id){
+  var m=id?(D.team||[]).find(function(x){return x.id===id):null;
+  document.getElementById('teamModalT').textContent=m?'编辑成员':'添加成员';
+  document.getElementById('teamName').value=m?m.name:'';document.getElementById('teamRole').value=m?m.role:'摄影师';
+  document.getElementById('teamStatus').value=m?m.status:'active';document.getElementById('teamEmail').value=m?m.email:'';
+  document.getElementById('teamPhone').value=m?m.phone:'';document.getElementById('teamNote').value=m?m.note:'';
+  document.getElementById('teamId').value=m?m.id:'';document.getElementById('teamDel').style.display=m?'inline-flex':'none';
+  document.getElementById('teamModal').classList.add('show');
+}
+function saveTeamMember(){
+  var id=document.getElementById('teamId').value;
+  var m={name:document.getElementById('teamName').value.trim(),role:document.getElementById('teamRole').value,status:document.getElementById('teamStatus').value,email:document.getElementById('teamEmail').value.trim(),phone:document.getElementById('teamPhone').value.trim(),note:document.getElementById('teamNote').value.trim()};
+  if(!m.name)return alert('请输入姓名');
+  if(id){var idx=(D.team||[]).findIndex(function(x){return x.id===id});if(idx>=0)D.team[idx]=Object.assign(D.team[idx],m,{id:id})}
+  else{m.id='tm'+Date.now();D.team.push(m)}
+  sv();renderTeam();closeModal('teamModal');
+}
+function deleteTeamMember(){var id=document.getElementById('teamId').value;if(!confirm('确定删除？'))return;D.team=D.team.filter(function(m){return m.id!==id});sv();renderTeam();closeModal('teamModal')}
+
+/* === AUTOMATIONS === */
+function renderAutomations(){
+  var list=D.automations||[];
+  var g=document.getElementById('automationList');
+  if(!list.length){g.innerHTML='<div class="empty-state"><div class="icon">⚙️</div><p>暂无自动化规则</p><button class="btn btn-primary btn-sm" onclick="openAutomationModal()">创建第一个</button></div>';return}
+  var typeLabels={reminder:'发布提醒',payment:'结款提醒',daily:'每日待办',weekly:'周报生成'};
+  var typeIcons={reminder:'📢',payment:'💰',daily:'📋',weekly:'📊'};
+  g.innerHTML=list.map(function(a){
+    return '<div class="wf-card">'+
+      '<div class="wf-card-header">'+
+        '<div><span class="wf-card-title">'+(typeIcons[a.type]||'⚙️')+' '+e(a.name)+'</span></div>'+
+        '<label class="toggle"><input type="checkbox" '+(a.enabled?'checked':'')+' onchange="toggleAutomation(\''+a.id+'\')"><span class="toggle-slider"></span></label>'+
+      '</div>'+
+      '<div class="wf-card-desc">'+(typeLabels[a.type]||a.type)+(a.date?' · '+a.date:'')+(a.project?' · '+e(a.project):'')+(a.note?' · '+e(a.note):'')+'</div>'+
+      '<div style="display:flex;gap:6px;margin-top:8px"><button class="btn btn-ghost btn-xs" onclick="openAutomationModal(\''+a.id+'\')">编辑</button><button class="btn btn-danger btn-xs" onclick="deleteAutomationById(\''+a.id+'\')">删除</button></div>'+
+    '</div>';
+  }).join('');
+}
+function openAutomationModal(id){
+  var a=id?(D.automations||[]).find(function(x){return x.id===id):null;
+  document.getElementById('wfModalT').textContent=a?'编辑规则':'新建自动化规则';
+  document.getElementById('wfName').value=a?a.name:'';document.getElementById('wfType').value=a?a.type:'reminder';
+  document.getElementById('wfDate').value=a?a.date:'';document.getElementById('wfNote').value=a?a.note:'';
+  document.getElementById('wfId').value=a?a.id:'';document.getElementById('wfDel').style.display=a?'inline-flex':'none';
+  var projOpts=D.projects.map(function(p){return '<option value="'+e(p.name)+'"'+(a&&a.project===p.name?' selected':'')+'>'+e(p.name)+'</option>'}).join('');
+  document.getElementById('wfProject').innerHTML='<option value="">无</option>'+projOpts;
+  onWfTypeChange();
+  document.getElementById('wfModal').classList.add('show');
+}
+function onWfTypeChange(){
+  var type=document.getElementById('wfType').value;
+  document.getElementById('wfProjectGroup').style.display=(type==='reminder'||type==='payment')?'block':'none';
+  document.getElementById('wfDateGroup').style.display=(type==='reminder'||type==='payment')?'block':'none';
+}
+function saveAutomation(){
+  var id=document.getElementById('wfId').value;
+  var a={name:document.getElementById('wfName').value.trim(),type:document.getElementById('wfType').value,project:document.getElementById('wfProject').value,date:document.getElementById('wfDate').value,note:document.getElementById('wfNote').value.trim(),enabled:true};
+  if(!a.name)return alert('请输入规则名称');
+  if(id){var idx=(D.automations||[]).findIndex(function(x){return x.id===id});if(idx>=0)D.automations[idx]=Object.assign(D.automations[idx],a,{id:id})}
+  else{a.id='au'+Date.now();D.automations.push(a)}
+  sv();renderAutomations();closeModal('wfModal');
+}
+function deleteAutomation(){var id=document.getElementById('wfId').value;if(!confirm('确定删除？'))return;D.automations=D.automations.filter(function(a){return a.id!==id});sv();renderAutomations();closeModal('wfModal')}
+function deleteAutomationById(id){if(!confirm('确定删除？'))return;D.automations=D.automations.filter(function(a){return a.id!==id});sv();renderAutomations()}
+function toggleAutomation(id){var a=(D.automations||[]).find(function(x){return x.id===id});if(a){a.enabled=!a.enabled;sv()}}
+function checkAutomations(){
+  var today=new Date().toISOString().slice(0,10);
+  var alerts=[];
+  (D.automations||[]).forEach(function(a){
+    if(!a.enabled)return;
+    if(a.type==='reminder'&&a.date){
+      var dl=getDaysLeft(a.date);
+      if(dl!==null&&dl<=1)alerts.push('📢「'+a.name+'」'+(dl<0?'已逾期':dl===0?'今天到期':'明天到期'));
+    }
+    if(a.type==='payment'&&a.date){
+      var dl2=getDaysLeft(a.date);
+      if(dl2!==null&&dl2<=1)alerts.push('💰「'+a.name+'」结款'+(dl2<0?'已逾期':dl2===0?'今天到期':'明天到期'));
+    }
+    if(a.type==='daily'){
+      var todayTasks=(D.progress||[]).filter(function(p){return p.deadline===today&&p.status!=='done'});
+      if(todayTasks.length)alerts.push('📋 今日'+todayTasks.length+'项待办任务到期');
+    }
+    if(a.type==='weekly'&&new Date().getDay()===1){
+      alerts.push('📊 周报提醒：本周记得复盘上周数据');
+    }
+  });
+  if(alerts.length)setTimeout(function(){alert('⚙️ 工作流提醒：\n\n'+alerts.join('\n'))},500);
+}
+
 /* INIT */
 L();
+loadTheme();
 document.getElementById('todayDate').textContent=new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
-US();renderProjects();refreshSelects();renderReviews();renderProgress();renderFinances();renderBreakdown();
+US();renderProjects();refreshSelects();renderReviews();renderProgress();renderFinances();renderBreakdown();renderClients();renderTeam();renderAutomations();renderHotspots();checkAutomations();
 </script>
 </body>
 </html>
