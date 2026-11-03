@@ -2051,7 +2051,7 @@ function renderClients(){
   }).join('');
 }
 function openClientModal(id){
-  var c=id?(D.clients||[]).find(function(x){return x.id===id):null;
+  var c=id?(D.clients||[]).find(function(x){return x.id===id}):null;
   document.getElementById('clientModalT').textContent=c?'编辑客户':'新建客户';
   document.getElementById('clientName').value=c?c.name:'';document.getElementById('clientCompany').value=c?c.company:'';
   document.getElementById('clientContact').value=c?c.contact:'';document.getElementById('clientPhone').value=c?c.phone:'';
@@ -2094,7 +2094,7 @@ function renderTeam(){
   }).join('');
 }
 function openTeamModal(id){
-  var m=id?(D.team||[]).find(function(x){return x.id===id):null;
+  var m=id?(D.team||[]).find(function(x){return x.id===id}):null;
   document.getElementById('teamModalT').textContent=m?'编辑成员':'添加成员';
   document.getElementById('teamName').value=m?m.name:'';document.getElementById('teamRole').value=m?m.role:'摄影师';
   document.getElementById('teamStatus').value=m?m.status:'active';document.getElementById('teamEmail').value=m?m.email:'';
@@ -2131,7 +2131,7 @@ function renderAutomations(){
   }).join('');
 }
 function openAutomationModal(id){
-  var a=id?(D.automations||[]).find(function(x){return x.id===id):null;
+  var a=id?(D.automations||[]).find(function(x){return x.id===id}):null;
   document.getElementById('wfModalT').textContent=a?'编辑规则':'新建自动化规则';
   document.getElementById('wfName').value=a?a.name:'';document.getElementById('wfType').value=a?a.type:'reminder';
   document.getElementById('wfDate').value=a?a.date:'';document.getElementById('wfNote').value=a?a.note:'';
