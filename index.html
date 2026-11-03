@@ -754,7 +754,7 @@ body.dark .modal-overlay{background:rgba(0,0,0,.6)}
   <div class="form-row"><div class="form-group"><label>电话</label><input id="clientPhone"></div><div class="form-group"><label>邮箱</label><input id="clientEmail"></div></div>
   <div class="form-group"><label>关联项目</label><div id="clientProjects" style="max-height:120px;overflow-y:auto;border:1px solid var(--border);border-radius:var(--radius-xs);padding:8px"></div></div>
   <div class="form-group"><label>备注</label><textarea id="clientNote"></textarea></div>
-  <div class="form-group"><label>状态</label><select id="clientStatus"><option value="active">活跃</option><option value="inactive"> inactive</option></select></div>
+  <div class="form-group"><label>状态</label><select id="clientStatus"><option value="active">活跃</option><option value="inactive">停用</option></select></div>
   <input type="hidden" id="clientId">
   <div class="modal-actions"><button class="btn btn-ghost btn-sm" onclick="closeModal('clientModal')">取消</button><button class="btn btn-danger btn-sm" id="clientDel" style="display:none" onclick="deleteClient()">删除</button><button class="btn btn-primary btn-sm" onclick="saveClient()">保存</button></div>
 </div></div>
