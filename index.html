@@ -2311,9 +2311,42 @@ function checkAutomations(){
   if(alerts.length)setTimeout(function(){alert('⚙️ 工作流提醒：\n\n'+alerts.join('\n'))},500);
 }
 
+/* === 一次性导入：艾蒙拉麦克风思维导图脚本（个人项目，非商单） === */
+function importAimonlaScript(){
+  if(localStorage.getItem('cc-aimonla-imported'))return;
+  localStorage.setItem('cc-aimonla-imported','1');
+  var pid=gid('p');
+  D.projects.push({id:pid,name:'艾蒙拉麦克风个人评测',path:'',status:'active',acct:'wsy',count:0,
+    note:'个人项目（非商单）：艾蒙拉生态单人口播组合（verge max 平板灯 + mic 无线麦 + 索尼 zve1），脚本由思维导图图片提取整理',created:'2026-11-08'});
+  var sid=gid('s');
+  D.scripts.push({id:sid,name:'艾蒙拉麦克风评测脚本（导图版）',pid:pid,link:'',acct:'wsy',versions:[],teamShots:[],shots:[],sections:[
+    {part:'开头',shots:[
+      {lens:'转过来口播',text:'单人口播拍摄，一盏灯、一个麦克风、一台相机就可以了。'},
+      {lens:'口播',text:'那么接下来，我将一一分享我的这套口播组合，实际使用起来到底怎么样，开始吧。'},
+      {lens:'桌面俯拍',text:'（画面素材：AI首尾帧、纸张抽拉带光、产品圆形扫光、开箱、接入手机、电脑、相机、拿到正面、长按按键、点击静音、背后拍摄拿麦克风，按需取用）'}
+    ]},
+    {part:'中间 · 平板灯',shots:[
+      {lens:'数码好物排齐特写',text:'ok，hello大家好，那么这期视频呢，分享我单人口播拍摄，长期使用下来觉得非常值得推荐的数码玩物，真实无广，那么开始吧。'},
+      {lens:'一键开灯后口播、作品浏览录制',text:'第一个，就是艾蒙拉的verge max，使用这一台平板灯已经有一段时间了，最省心的就是我只需要一键开灯，就可以立马录制口播，不用再去架主灯、副灯，再去麻烦地找角度，那如果你有看我每一期视频，你会发现我的口播机位基本都是这一个，相对的缺陷就是需要一直固定在桌面上，我的机位会显得比较单一，如果是对于直播群体来说，那就是一个非常好用的直播灯。'}
+    ]},
+    {part:'中间 · 麦克风',shots:[
+      {lens:'mic特写（观片灯上/放下/拿着）、amaran的logo特写、拿着麦克风口播、网页里的白色、拿着DJI麦克风佩戴、AI拆解麦克风',text:'第二个呢，就是麦克风，我的麦克风也是选自艾蒙拉这个牌子，艾蒙拉mic无线麦克风，很可惜的一点就是我拿到手的是黑色，我觉得白色的颜值会更高一点，那之前我一直在使用这种佩戴式的无线麦克风，最大的感受就是在这种稍微封闭的空间里，很容易就带有回声，这个艾蒙拉mic呢录制下来的声音就非常清晰干净，机内双核AI降噪、24bit采样深度、48khz，86dB，这些参数我就不过多介绍，你们可以自行了解。'},
+      {lens:'第一人称拿C口接电脑、音频线接上、展开C口线接zve1和麦克风、手机和电脑连接、app浏览、麦克风屏幕特写、调节灯光',text:'那我现在就用两款麦克风所录制的声音对比一下，“单人口播拍摄、一盏灯、一台相机、一个麦克风就足够了”，“我现在呢使用djimic mini进行录制”，听出来了么，如果没有也没关系，总之，艾蒙拉mic给的感觉就是非常轻便、高效，即插即用，不再像以前需要连接一根音频线，目前对我这台索尼zve1来说只能用C口有线连接，手机电脑之类的支持无线连接，我也非常期待后续艾蒙拉能开发出一个支持相机无线连接的接收器，以上我所使用到的都是艾蒙拉的生态产品，目前呢他们也开发了自己的生态app，amaran desktop，可以调节我的灯光，也可以控制我的麦克风，增益、降噪、音量等等。'}
+    ]},
+    {part:'中间 · 相机',shots:[
+      {lens:'索尼zve1特写、整机拿在手上特写（4P）、12800iso的特写、机身特写（4P）、镜头特写',text:'ok，第三个，就是我的相机，索尼zve1，说实话，这个数码伙计自从入手以来，就没有吐槽过这台相机的任何缺陷，像我在这么差的光线下，我一般都会开12800的ISO，这是他的第二档原生iso，你们应该看不出明显的噪点，其次呢，我目前搭配的镜头是2070F4，所以说这台相机总重量没有超过1kg，对于拍摄vlog的人群是一个非常好的选择，那么，接下来如果有机会的话我也会详细介绍我这一个数码助理。'}
+    ]},
+    {part:'结尾',shots:[
+      {lens:'口播',text:'那么这期视频就到这里了，如果你有更多想了解的地方，欢迎在评论区留言，每一条我都会认真看的，ok拜拜，我是那个不沾粉的拾叁，我们下期见。'}
+    ]}
+  ]});
+  sv();
+}
+
 /* INIT */
 L();
 seedDemoData();
+importAimonlaScript();
 loadTheme();
 document.getElementById('todayDate').textContent=new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
 US();renderProjects();refreshSelects();renderReviews();renderProgress();renderFinances();renderBreakdown();renderClients();renderTeam();renderAutomations();renderHotspots();renderTips();checkAutomations();
