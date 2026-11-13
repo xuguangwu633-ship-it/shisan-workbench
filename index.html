@@ -877,89 +877,6 @@ function I(){
   }
 }
 
-/* === 示例数据：仅注入到「空白」模块，绝不覆盖已有数据 === */
-function _demoSeed(){
-  return {
-    reviews:[
-      {id:'rvd1',title:'57秒学会vlog蒙版快切开场',acct:'wmxz',project:'创意开头合集',platform:'抖音',date:'2026-10-25',views:126000,likes:8900,comments:430,favorites:5200,shares:1100,reflection:'教程类+时长短+标题带数字，三个因素叠加爆了。评论区大量求模板，下次可以直接做「模板合集」承接流量。'},
-      {id:'rvd2',title:'OPPO新品发布会现场快剪',acct:'wsy',project:'20260923 OPPO新品发布会',platform:'抖音',date:'2026-09-25',views:88500,likes:5600,comments:290,favorites:2100,shares:640,reflection:'蹭新品热度时效性强，发布当天流量最好。教训：素材粗剪拖了两天，错过最佳窗口，下次要当天出片。'},
-      {id:'rvd3',title:'佳能R50V露营KOC实测',acct:'wsy',project:'',platform:'抖音',date:'2026-10-20',views:45200,likes:2860,comments:143,favorites:980,shares:210,reflection:'场景化实测比参数罗列有效，收藏率偏低说明「有用但没到想存的程度」，下次加一段可直接抄的拍摄参数表。'},
-      {id:'rvd4',title:'永诺11mm F1.8镜头评测',acct:'wsy',project:'',platform:'抖音',date:'2026-10-05',views:32100,likes:1980,comments:156,favorites:1340,shares:178,reflection:'「不到2000块值不值」这个钩子有效，评论互动率高。国产镜头选题受众精准，可以做成系列。'},
-      {id:'rvd5',title:'斯丹德手电筒打光教程',acct:'wsy',project:'斯丹德手电筒评测',platform:'B站',date:'2026-10-28',views:18600,likes:1240,comments:96,favorites:1580,shares:88,reflection:'B站收藏率明显高于抖音（8.5% vs 2.2%），教程类内容更适合B站长尾流量。同一素材应该分平台差异化剪辑。'},
-      {id:'rvd6',title:'广州兰圃VLOG',acct:'zfdg',project:'20261004广州兰圃',platform:'小红书',date:'2026-10-18',views:12400,likes:1560,comments:88,favorites:1120,shares:62,reflection:'园林+光影的调性契合小红书审美，互动率12.6%是近期最高。封面用了逆光剪影，点击率明显好于平铺直叙的封面。'},
-      {id:'rvd7',title:'兰圃园林拍摄技巧分享',acct:'zfdg',project:'20261004广州兰圃',platform:'小红书',date:'2026-10-12',views:9800,likes:1120,comments:67,favorites:890,shares:45,reflection:'技巧类在小红书表现稳定但不爆。同一批素材拆成「VLOG+技巧」两条发布，总曝光反而更高，这个打法可以复制。'},
-      {id:'rvd8',title:'香港街拍夜景调色教程',acct:'wmxz',project:'香港快切',platform:'B站',date:'2026-09-30',views:6300,likes:320,comments:28,favorites:210,shares:15,reflection:'数据偏低，问题在标题太专业、门槛高，非达芬奇用户直接划走。下次标题要写结果不写工具，比如「夜景废片拯救」。'}
-    ],
-    progress:[
-      {id:'pgd1',title:'脚本定稿',project:'斯丹德手电筒评测',status:'done',deadline:'2026-10-28',note:'四段式结构已确认：对比开场→口播→四种打光场景→滤色片结尾'},
-      {id:'pgd2',title:'产品拍摄',project:'斯丹德手电筒评测',status:'done',deadline:'2026-11-02',note:'23个素材文件已入库，静物特写+造影片效果镜头齐全'},
-      {id:'pgd3',title:'打光教程录制',project:'斯丹德手电筒评测',status:'doing',deadline:'2026-11-08',note:'四种场景已录三种，缺「电影效果」的场景，需补拍雷电/闪光'},
-      {id:'pgd4',title:'剪辑成片',project:'斯丹德手电筒评测',status:'todo',deadline:'2026-11-12',note:'交小雨剪，需保留原声口播，配乐选轻科技感'},
-      {id:'pgd5',title:'产品图拍摄',project:'卡登双肩包产品拍摄',status:'done',deadline:'2026-10-08',note:'32个素材，白底图+场景图已完成'},
-      {id:'pgd6',title:'调色输出',project:'卡登双肩包产品拍摄',status:'doing',deadline:'2026-11-05',note:'客户偏暖调，注意面料质感不要过度锐化'},
-      {id:'pgd7',title:'视频剪辑交付',project:'卡登双肩包产品拍摄',status:'todo',deadline:'2026-11-10',note:'15秒竖版+30秒横版各一条，需客户确认后发布'},
-      {id:'pgd8',title:'现场素材粗剪',project:'20260923 OPPO新品发布会',status:'review',deadline:'2026-11-01',note:'粗剪版已出，等客户反馈修改意见'},
-      {id:'pgd9',title:'精剪+配乐',project:'20260923 OPPO新品发布会',status:'todo',deadline:'2026-11-15',note:'按客户「简洁科技感」要求调整节奏，配乐待选'},
-      {id:'pgd10',title:'教程大纲策划',project:'小狗教程',status:'doing',deadline:'2026-11-20',note:'宠物拍摄难点在抓拍，考虑用「三招搞定乱动宠物」的角度切入'},
-      {id:'pgd11',title:'素材筛选归档',project:'创意开头合集',status:'review',deadline:'2026-11-10',note:'8个开头片段已分类，需确认哪些做成可复用模板'}
-    ],
-    finances:[
-      {id:'fnd1',type:'income',category:'商单收入',amount:3500,date:'2026-09-28',project:'20260923 OPPO新品发布会',note:'发布会拍摄服务首笔款项'},
-      {id:'fnd2',type:'expense',category:'设备采购',amount:4200,date:'2026-09-15',project:'斯丹德手电筒评测',note:'补光设备与造影片配件'},
-      {id:'fnd3',type:'expense',category:'差旅',amount:860,date:'2026-09-20',project:'20260923 OPPO新品发布会',note:'往返交通+现场餐补'},
-      {id:'fnd4',type:'income',category:'平台分成',amount:1280,date:'2026-10-10',project:'20261004广州兰圃',note:'小红书创作者激励'},
-      {id:'fnd5',type:'expense',category:'道具耗材',amount:420,date:'2026-10-04',project:'卡登双肩包产品拍摄',note:'背景布+静物台道具'},
-      {id:'fnd6',type:'income',category:'商单收入',amount:6800,date:'2026-10-26',project:'斯丹德手电筒评测',note:'评测合作全款到账'},
-      {id:'fnd7',type:'expense',category:'设备租赁',amount:980,date:'2026-10-18',project:'创意开头合集',note:'稳定器+滑轨短租'},
-      {id:'fnd8',type:'income',category:'广告收入',amount:2400,date:'2026-10-30',project:'20261004广州兰圃',note:'视频贴片广告分成'},
-      {id:'fnd9',type:'expense',category:'设备采购',amount:300,date:'2026-11-01',project:'',acct:'wsy',note:'艾蒙拉MIC评测样品费用'},
-      {id:'fnd10',type:'income',category:'商单收入',amount:15000,date:'2026-11-05',project:'20260923 OPPO新品发布会',note:'发布会项目尾款结清'},
-      {id:'fnd11',type:'expense',category:'差旅',amount:1240,date:'2026-11-03',project:'20261004广州兰圃',note:'广州拍摄两日食宿交通'}
-    ],
-    breakdowns:[
-      {id:'bdd1',title:'艾蒙拉MIC新品评测',acct:'wsy',project:'',step:4,created:'2026-11-01',
-        brief:'艾蒙拉MIC无线麦克风新品评测。客户诉求：突出降噪效果与续航表现，面向刚起步的短视频创作者人群，强调性价比。交付要求：11月30日前发布，成片60秒左右，必须包含真实环境收音对比。预算300元，发布后约1周结款。',
-        outline:'【视频定位】\n📷 五拾叁账号内容，产品评测类\n\n【核心信息】\n1. 艾蒙拉MIC无线麦克风新品\n2. 核心卖点：降噪效果 + 长续航\n3. 目标人群：刚起步的短视频创作者\n4. 必须呈现真实收音对比\n5. 时长控制在60秒，节奏紧凑\n\n【叙事结构】\n第一幕（0-5秒）：黄金开场，嘈杂环境 vs 清晰收音的强对比制造冲突\n第二幕（5-20秒）：产品外观与佩戴方式，突出小巧便携\n第三幕（20-40秒）：实测降噪与续航，真实场景收音对比\n第四幕（40-60秒）：性价比总结 + 互动引导\n\n【目标受众】\n对数码科技感兴趣的年轻用户，尤其是预算有限、刚起步的短视频创作者',
-        shotlist:'【拍摄清单】\n\n1. 开场对比（0-5秒）\n   - 场景：马路边/商场等嘈杂环境\n   - 景别：中景手持，轻微晃动增强真实感\n   - 备注：手机直录 vs 艾蒙拉MIC，左右声道对比最直观\n\n2. 产品展示（5-20秒）\n   - 场景：桌面浅色背景\n   - 景别：特写机身 + 中景佩戴演示\n   - 备注：突出体积小巧，别在衣领上的实际观感\n\n3. 降噪实测（20-30秒）\n   - 场景：同一嘈杂环境，固定机位\n   - 景别：中景口播\n   - 备注：录原声，不做后期降噪，保证可信度\n\n4. 续航测试（30-40秒）\n   - 场景：桌面 + 电量界面特写\n   - 景别：特写\n   - 备注：用字幕标注连续录制时长，数字最有说服力\n\n5. 总结引导（40-60秒）\n   - 场景：出镜口播\n   - 景别：中景\n   - 备注：一句话点明适合人群，引导评论区提问\n\n【设备建议】\n相机：微单 + 35mm定焦（口播虚化自然）\n灯光：主光 + 辅光两灯，桌面补一盏小灯避免阴影\n收音：被测产品本身即为收音设备，需另备一台录音笔做对照',
-        script:'【艾蒙拉MIC新品评测 完整脚本】\n\n━━━ 第一幕：黄金开场（0-5秒）━━━\n\n[画面] 马路边嘈杂环境，手机直录画面，环境音明显\n[口播] 同样在马路边录视频，为什么他的声音这么干净？\n[字幕] 手机直录 vs 艾蒙拉MIC\n\n━━━ 第二幕：产品展示（5-20秒）━━━\n\n[画面] 桌面特写机身，随后别在衣领上演示\n[口播] 这是艾蒙拉MIC无线麦克风，比一枚硬币大不了多少，别在衣领上几乎看不出痕迹。对刚起步做视频的人来说，不用架一堆设备就能收音，这点很关键。\n\n━━━ 第三幕：降噪实测（20-30秒）━━━\n\n[画面] 固定机位，同一嘈杂环境口播\n[口播] 我现在就在刚才那个马路边，没有做任何后期降噪，你听到的就是原声。（停顿2秒）环境音还在，但人声是浮在上面的，这就是它主打的降噪。\n[字幕] 无后期处理·原声直出\n\n━━━ 第四幕：续航测试（30-40秒）━━━\n\n[画面] 桌面特写电量界面，字幕标注时长\n[口播] 续航方面，我连续录了六个小时还剩两格电。对一天拍好几条的人来说，基本不用担心中途断电。\n[字幕] 连续录制 6小时+\n\n━━━ 第五幕：总结引导（40-60秒）━━━\n\n[画面] 出镜口播，产品放在桌面前景\n[口播] 总结一下，艾蒙拉MIC适合刚起步、预算有限但又想把声音做好的创作者。如果你也在为收音发愁，可以考虑。你现在用的是什么麦克风？评论区聊聊，关注我，下期见！\n\n[备注] 以上脚本为AI生成初稿，口播措辞请按个人语气调整；「六小时续航」等数字需实测后替换为真实数据。'}
-    ],
-    clients:[
-      {id:'cld1',name:'陈经理',company:'OPPO广东移动通信',contact:'陈经理',phone:'138****2288',email:'chen.pm@oppo-demo.com',status:'active',projects:['20260923 OPPO新品发布会'],created:'2026-09-10',note:'新品发布会拍摄合作。对交付质量要求高，偏好简洁科技感风格，反馈周期约2-3天。回款周期30天，需提前开票。'},
-      {id:'cld2',name:'林女士',company:'斯丹德（深圳）科技',contact:'林女士',phone:'139****6612',email:'lin@std-demo.com',status:'active',projects:['斯丹德手电筒评测'],created:'2026-10-15',note:'影像灯光品牌，长期合作。每季度1-2个评测项目，要求提供实拍样片作为交付凭证。沟通顺畅，结款及时。'},
-      {id:'cld3',name:'黄主管',company:'卡登箱包',contact:'黄主管',phone:'137****0455',email:'huang@kadeng-demo.com',status:'active',projects:['卡登双肩包产品拍摄'],created:'2026-10-01',note:'双肩包产品图+视频。特别注重面料材质质感呈现，明确要求调色偏暖、避免过度锐化。需交付竖版与横版各一条。'},
-      {id:'cld4',name:'吴先生',company:'艾蒙拉音频',contact:'吴先生',phone:'135****7788',email:'wu@aimla-demo.com',status:'active',projects:[],created:'2026-10-28',note:'麦克风新品评测合作。预算300元，要求11月30日前发布，成片60秒左右且需含真实收音对比。发布后约1周结款，注意跟进。'},
-      {id:'cld5',name:'赵小姐',company:'佳能（中国）影像',contact:'赵小姐',phone:'136****3399',email:'zhao@canon-demo.com',status:'inactive',projects:[],created:'2026-03-12',note:'KOC内容合作，2026上半年已完成 R50V 露营实测与 R8 评测两个项目。目前暂停，可在Q1新品季适时重启联系。'}
-    ],
-    team:[
-      {id:'tmd1',name:'拾叁',role:'编导',status:'active',email:'shisan@demo.com',phone:'—',note:'本人。负责选题策划、脚本撰写、出镜口播与客户对接。'},
-      {id:'tmd2',name:'阿哲',role:'摄影师',status:'active',email:'zhe@demo.com',phone:'158****2211',note:'主力机位。擅长产品静物与人像布光，斯丹德打光教程由他掌机。档期需提前3天预约。'},
-      {id:'tmd3',name:'小雨',role:'剪辑师',status:'active',email:'yu@demo.com',phone:'159****7783',note:'负责达芬奇调色与成片剪辑，日均产出1-2条。加急需求需提前一天沟通，按条结算。'},
-      {id:'tmd4',name:'可可',role:'文案',status:'active',email:'keke@demo.com',phone:'186****4402',note:'负责标题与文案优化，擅长抖音爆款结构。「57秒学会vlog蒙版快切开场」这条爆款的标题出自她手。'},
-      {id:'tmd5',name:'老周',role:'商务',status:'inactive',email:'zhou@demo.com',phone:'187****9930',note:'对接品牌商单与报价谈判。目前项目多由本人直接对接，暂时停用，商单量上来后可重启。'}
-    ],
-    automations:[
-      {id:'aud1',name:'艾蒙拉MIC发布截止提醒',type:'reminder',project:'',date:'2026-11-30',note:'客户要求11.30前发布艾蒙拉MIC评测，提前3天开始跟进成片进度',enabled:true},
-      {id:'aud2',name:'艾蒙拉MIC结款跟进',type:'payment',project:'',date:'2026-12-07',note:'发布后约1周结款，金额300元，逾期未到账需主动联系吴先生',enabled:true},
-      {id:'aud3',name:'斯丹德手电筒成片交付',type:'reminder',project:'斯丹德手电筒评测',date:'2026-11-12',note:'剪辑成片交付节点，交付后向林女士索取样片确认',enabled:true},
-      {id:'aud4',name:'卡登双肩包调色交付',type:'reminder',project:'卡登双肩包产品拍摄',date:'2026-11-05',note:'调色输出交付黄主管确认，注意偏暖调要求',enabled:true},
-      {id:'aud5',name:'每周一自动生成周报',type:'weekly',project:'',date:'',note:'汇总上周项目进度、复盘数据与收支情况，周一早上查看',enabled:true},
-      {id:'aud6',name:'每日待办提醒',type:'daily',project:'',date:'',note:'每天早上列出当天到期的拍摄与剪辑任务',enabled:false}
-    ]
-  };
-}
-var DEMO_SEED_FLAG='cc-demo-seeded-v1';
-function seedDemoData(){
-  try{
-    if(localStorage.getItem(DEMO_SEED_FLAG))return;
-    var s=_demoSeed(),filled=false;
-    ['reviews','progress','finances','breakdowns','clients','team','automations'].forEach(function(k){
-      if((!Array.isArray(D[k])||D[k].length===0)&&s[k]&&s[k].length){D[k]=s[k].slice();filled=true}
-    });
-    localStorage.setItem(DEMO_SEED_FLAG,'1');
-    if(filled)sv();
-  }catch(e){}
-}
-
 /* === 面板小备注 === */
 var PANEL_TIPS={
   projects:{icon:'📁',html:'<strong>怎么用：</strong>新建项目时选好「归属账号」，之后脚本、复盘、进度、财务只要关联这个项目就会自动归到对应账号列。赶时间可以直接点右上角 <strong>⚡快速建项</strong>，一次生成项目+脚本+进度任务+预算记录。'},
@@ -2255,38 +2172,6 @@ function checkAutomations(){
     }
   });
   if(alerts.length)setTimeout(function(){alert('⚙️ 工作流提醒：\n\n'+alerts.join('\n'))},500);
-}
-
-/* === 一次性导入：艾蒙拉麦克风思维导图脚本（个人项目，非商单） === */
-function importAimonlaScript(){
-  if(localStorage.getItem('cc-aimonla-imported'))return;
-  localStorage.setItem('cc-aimonla-imported','1');
-  var pid=gid('p');
-  D.projects.push({id:pid,name:'艾蒙拉麦克风个人评测',path:'',status:'active',acct:'wsy',count:0,
-    note:'个人项目（非商单）：艾蒙拉生态单人口播组合（verge max 平板灯 + mic 无线麦 + 索尼 zve1），脚本由思维导图图片提取整理',created:'2026-11-08'});
-  var sid=gid('s');
-  D.scripts.push({id:sid,name:'艾蒙拉麦克风评测脚本（导图版）',pid:pid,link:'',acct:'wsy',versions:[],teamShots:[],shots:[],sections:[
-    {part:'开头',shots:[
-      {lens:'转过来口播',text:'单人口播拍摄，一盏灯、一个麦克风、一台相机就可以了。'},
-      {lens:'口播',text:'那么接下来，我将一一分享我的这套口播组合，实际使用起来到底怎么样，开始吧。'},
-      {lens:'桌面俯拍',text:'（画面素材：AI首尾帧、纸张抽拉带光、产品圆形扫光、开箱、接入手机、电脑、相机、拿到正面、长按按键、点击静音、背后拍摄拿麦克风，按需取用）'}
-    ]},
-    {part:'中间 · 平板灯',shots:[
-      {lens:'数码好物排齐特写',text:'ok，hello大家好，那么这期视频呢，分享我单人口播拍摄，长期使用下来觉得非常值得推荐的数码玩物，真实无广，那么开始吧。'},
-      {lens:'一键开灯后口播、作品浏览录制',text:'第一个，就是艾蒙拉的verge max，使用这一台平板灯已经有一段时间了，最省心的就是我只需要一键开灯，就可以立马录制口播，不用再去架主灯、副灯，再去麻烦地找角度，那如果你有看我每一期视频，你会发现我的口播机位基本都是这一个，相对的缺陷就是需要一直固定在桌面上，我的机位会显得比较单一，如果是对于直播群体来说，那就是一个非常好用的直播灯。'}
-    ]},
-    {part:'中间 · 麦克风',shots:[
-      {lens:'mic特写（观片灯上/放下/拿着）、amaran的logo特写、拿着麦克风口播、网页里的白色、拿着DJI麦克风佩戴、AI拆解麦克风',text:'第二个呢，就是麦克风，我的麦克风也是选自艾蒙拉这个牌子，艾蒙拉mic无线麦克风，很可惜的一点就是我拿到手的是黑色，我觉得白色的颜值会更高一点，那之前我一直在使用这种佩戴式的无线麦克风，最大的感受就是在这种稍微封闭的空间里，很容易就带有回声，这个艾蒙拉mic呢录制下来的声音就非常清晰干净，机内双核AI降噪、24bit采样深度、48khz，86dB，这些参数我就不过多介绍，你们可以自行了解。'},
-      {lens:'第一人称拿C口接电脑、音频线接上、展开C口线接zve1和麦克风、手机和电脑连接、app浏览、麦克风屏幕特写、调节灯光',text:'那我现在就用两款麦克风所录制的声音对比一下，“单人口播拍摄、一盏灯、一台相机、一个麦克风就足够了”，“我现在呢使用djimic mini进行录制”，听出来了么，如果没有也没关系，总之，艾蒙拉mic给的感觉就是非常轻便、高效，即插即用，不再像以前需要连接一根音频线，目前对我这台索尼zve1来说只能用C口有线连接，手机电脑之类的支持无线连接，我也非常期待后续艾蒙拉能开发出一个支持相机无线连接的接收器，以上我所使用到的都是艾蒙拉的生态产品，目前呢他们也开发了自己的生态app，amaran desktop，可以调节我的灯光，也可以控制我的麦克风，增益、降噪、音量等等。'}
-    ]},
-    {part:'中间 · 相机',shots:[
-      {lens:'索尼zve1特写、整机拿在手上特写（4P）、12800iso的特写、机身特写（4P）、镜头特写',text:'ok，第三个，就是我的相机，索尼zve1，说实话，这个数码伙计自从入手以来，就没有吐槽过这台相机的任何缺陷，像我在这么差的光线下，我一般都会开12800的ISO，这是他的第二档原生iso，你们应该看不出明显的噪点，其次呢，我目前搭配的镜头是2070F4，所以说这台相机总重量没有超过1kg，对于拍摄vlog的人群是一个非常好的选择，那么，接下来如果有机会的话我也会详细介绍我这一个数码助理。'}
-    ]},
-    {part:'结尾',shots:[
-      {lens:'口播',text:'那么这期视频就到这里了，如果你有更多想了解的地方，欢迎在评论区留言，每一条我都会认真看的，ok拜拜，我是那个不沾粉的拾叁，我们下期见。'}
-    ]}
-  ]});
-  sv();
 }
 
 /* === 一次性清空内容数据（保留配置类数据），仅执行一次 === */
