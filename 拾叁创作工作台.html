@@ -861,65 +861,11 @@ function trySyncRemote(){
 function sv(){localStorage.setItem(S,JSON.stringify(D))}
 function I(){
   D={
-    projects:[
-      {id:'p1',name:'20240720香港旅拍',path:base+'/20240720香港',status:'done',acct:'zfdg',count:378,note:'香港白天街拍素材，378个MOV文件，已整理完毕',created:'2024-07-20'},
-      {id:'p2',name:'20260923 OPPO新品发布会',path:base+'/20260923新品发布会OPPO',status:'active',acct:'wsy',count:45,note:'OPPO新品发布会现场拍摄，待剪辑发布',created:'2026-09-23'},
-      {id:'p3',name:'20261004广州兰圃',path:base+'/20261004广州兰圃',status:'done',acct:'zfdg',count:86,note:'广州兰圃园林景观拍摄，已完成并发布',created:'2026-10-04'},
-      {id:'p4',name:'卡登双肩包产品拍摄',path:base+'/20261004卡登双肩包',status:'active',acct:'wsy',count:32,note:'卡登双肩包产品图+视频，待调色输出',created:'2026-10-04'},
-      {id:'p5',name:'斯丹德手电筒评测',path:base+'/20261026斯丹德手电筒',status:'active',acct:'wsy',count:23,note:'斯丹德手电筒开箱评测，脚本已定，拍摄中',created:'2026-10-26'},
-      {id:'p6',name:'香港快切',path:base+'/香港快切',status:'draft',acct:'zfdg',count:12,note:'香港素材快速剪辑版本，需进一步精剪',created:'2024-08-01'},
-      {id:'p7',name:'小狗教程',path:base+'/小狗教程',status:'idea',acct:'zfdg',count:0,note:'宠物拍摄技巧教程策划中',created:'2026-10-01'},
-      {id:'p8',name:'创意开头合集',path:base+'/创意开头',status:'draft',acct:'wmxz',count:8,note:'视频创意开场片段整理，用于模板化复用',created:'2026-09-01'},
-      {id:'p9',name:'10月录屏素材',path:base,status:'draft',acct:'wmxz',count:5,note:'10月13日录屏素材合集，共约1GB，待筛选使用',created:'2026-10-13'}
-    ],
-    scripts:[
-      {id:'s1',name:'佳能R50V抖音露营KOC脚本',pid:'',acct:'wsy',shots:[
-        {shot:'1',desc:'露营场景全景：帐篷、篝火、星空',text:'你还缺一台适合露营记录的相机吗？来看看佳能R50V。'},
-        {shot:'2',desc:'手持R50V特写，展示机身小巧',text:'巴掌大小，塞进背包毫无压力，轻便到你甚至会忘记它的存在。'},
-        {shot:'3',desc:'翻转屏自拍Vlog画面',text:'翻转屏+DIGIC X处理器，自拍对焦快准稳，一个人也能出片。'},
-        {shot:'4',desc:'夜景模式实拍样张展示',text:'暗光表现超预期，星空、篝火都能清晰出片，不用带三脚架也能手持直出。'}
-      ],link:''},
-      {id:'s2',name:'佳能R8拍摄脚本',pid:'',acct:'wsy',shots:[
-        {shot:'1',desc:'R8机身外观展示',text:'佳能R8——全画幅微单的性价比之王。'},
-        {shot:'2',desc:'高速连拍实拍测试',text:'每秒40张电子快门连拍，抓拍瞬间再也不会错过。'},
-        {shot:'3',desc:'人像样张对比展示',text:'全画幅CMOS带来的虚化和细节表现，同价位段无人能敌。'}
-      ],link:''},
-      {id:'s3',name:'永诺11mm F1.8镜头评测',pid:'',acct:'wsy',shots:[
-        {shot:'1',desc:'永诺11mm镜头上机展示',text:'永诺11mm F1.8，国产超广角自动对焦镜头，不到2000块的价格到底值不值？'},
-        {shot:'2',desc:'广角建筑/风光样张展示',text:'11mm超广角带来的冲击力，建筑、风光都能轻松驾驭。'},
-        {shot:'3',desc:'F1.8大光圈暗光测试',text:'F1.8大光圈夜景直出，眩光控制意外地好。'}
-      ],link:''},
-      {id:'s4',name:'艾蒙拉麦克风拍摄脚本',pid:'p5',acct:'wsy',sections:[],link:''},
-      {id:'s5',name:'斯丹德手电筒打光教程脚本',pid:'p5',acct:'wsy',sections:[
-        {part:'开头',shots:[
-          {lens:'对比画面展示',text:'对比以上两个画面，你更喜欢哪一个呢。我相信大部人都会选择第二个，为什么，因为，光，这些与设备无关的元素，才是氛围感的核心。'}
-        ]},
-        {part:'中间',shots:[
-          {lens:'出镜口播',text:'hello大家好，我是拾叁，大家都应该明白光所带来的作用是非常大的。不管是自然光，还是人造光，都能给画面带来更好的质感，那么接下来我来分享不一样的打光技巧。'},
-          {lens:'桌面特写',text:'第一种，静物特写。这是我没有打光的效果，这一个是我打光的效果，就算你的环境光线多么不好，通过打光也能实现非常好的效果。'},
-          {lens:'ai从黑到亮、加上造影片',text:'第二种，工作室布光。我这一间完全需要依靠打光才能实现的工作室，既要有完美的人像光，也需要用一些氛围光才增多一点元素，那么我通常使用造影片去给画面多加一些元素，这样是不是更有质感一点。'},
-          {lens:'架手电筒、逆光',text:'第三种，人像拍摄。不管是氛围感的人像还是清新写真，都能够发挥相应的优势，通过打逆光，如果有条件再加上烟雾，效果是不是挺好的，如果在拍摄清新写真呢，通过打面光或者是发丝光，也都能拍到不错的成片。'},
-          {lens:'效果灯花絮',text:'第四种，电影效果。如果你比较喜欢看外国电影，应该可以看到像这样的打雷、或者闪光的效果，其实一盏效果灯呢，就可以完美解决这种效果。'},
-          {lens:'俯拍放下、拿过来、投影片特写、效果特写',text:'以上的所有分享就是经过我实测之后所得到的效果，那么这次呢我也都是用一台手电筒去打光的，没错，就是手电筒，斯丹德造影灯MAX，25w的功率在暗光环境下完全hold得住，让我非常喜欢的功能呢就是有各种各样的造影片，人像、婚纱、播客都能派上用场。'}
-        ]},
-        {part:'结尾',shots:[
-          {lens:'单色光、滤色片特写、多色光特写',text:'虽然他只有单色光，搭配各种滤色片，也能实现多种颜色的变换，好啦，如果你能开发出更好用的打光技巧，也非常欢迎能够分享给我，我是拾叁，我们下期见。'}
-        ]}
-      ],link:''}
-    ],
-    ideas:[
-      {id:'i1',title:'逆光人像调色对比',content:'同一场景Log灰片 vs 调色后对比，展示肤色层次和高光滚降效果',acct:'wsy',tags:['调色','逆光','人像'],source:'',created:'2026-10-29'},
-      {id:'i2',title:'户外装备EDC展示',content:'用手电筒/背包/相机做一期户外博主的EDC翻包视频',acct:'wsy',tags:['EDC','户外','翻包'],source:'',created:'2026-10-29'},
-      {id:'i3',title:'香港街拍夜景调色教程',content:'用香港素材做一期夜景调色对比教程，展示达芬奇工作流',acct:'wmxz',tags:['达芬奇','调色','教程','夜景'],source:'',created:'2026-10-29'},
-      {id:'i4',title:'兰圃园林拍摄技巧',content:'中式园林构图法则+光影运用，配合兰圃素材做技巧分享',acct:'zfdg',tags:['园林','构图','旅行','VLOG'],source:'',created:'2026-10-29'},
-      {id:'i5',title:'57秒学会vlog蒙版快切开场',content:'57秒学会vlog蒙版快切开场！蒙版快切转场教程，让你的人物出场更加炫酷。#vlog #蒙版快切 #转场教程 #剪辑',acct:'wmxz',tags:['抖音','蒙版','快切','开场','vlog'],source:'https://v.douyin.com/X7DDJjjkPU0/',created:'2026-10-29'}
-    ],
+    projects:[],
+    scripts:[],
+    ideas:[],
     links:[
-      {id:'l1',name:'桌面项目',type:'folder',path:base},
-      {id:'l2',name:'香港素材',type:'folder',path:base+'/20240720香港'},
-      {id:'l3',name:'OPPO发布会',type:'folder',path:base+'/20260923新品发布会OPPO'},
-      {id:'l4',name:'广州兰圃',type:'folder',path:base+'/20261004广州兰圃'},
-      {id:'l5',name:'斯丹德手电筒',type:'folder',path:base+'/20261026斯丹德手电筒'}
+      {id:'l1',name:'桌面项目',type:'folder',path:base}
     ],
     reviews:[],
     progress:[],
@@ -2343,10 +2289,34 @@ function importAimonlaScript(){
   sv();
 }
 
+/* === 一次性清空内容数据（保留配置类数据），仅执行一次 === */
+var WIPE_FLAG='cc-wiped-content-v1';
+function wipeContentDataOnce(){
+  try{
+    if(localStorage.getItem(WIPE_FLAG))return;
+    /* 内容类模块：清空，重新开始使用 */
+    ['projects','scripts','ideas','reviews','progress','finances','breakdowns'].forEach(function(k){
+      if(Array.isArray(D[k]))D[k]=[];
+    });
+    /* 配置类模块保留，但剔除内置示例条目（用户真实录入的条目 ID 为时间戳格式，不受影响） */
+    var DEMO_IDS={
+      links:{l2:1,l3:1,l4:1,l5:1},          /* 指向已清空示例项目的死链，保留 l1 桌面项目 */
+      clients:{cld1:1,cld2:1,cld3:1,cld4:1,cld5:1},
+      team:{tmd1:1,tmd2:1,tmd3:1,tmd4:1,tmd5:1},
+      automations:{aud1:1,aud2:1,aud3:1,aud4:1,aud5:1,aud6:1}
+    };
+    Object.keys(DEMO_IDS).forEach(function(k){
+      if(!Array.isArray(D[k]))return;
+      D[k]=D[k].filter(function(x){return !DEMO_IDS[k][x&&x.id]});
+    });
+    sv();
+    localStorage.setItem(WIPE_FLAG,'1');
+  }catch(e){}
+}
+
 /* INIT */
 L();
-seedDemoData();
-importAimonlaScript();
+wipeContentDataOnce();
 loadTheme();
 document.getElementById('todayDate').textContent=new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
 US();renderProjects();refreshSelects();renderReviews();renderProgress();renderFinances();renderBreakdown();renderClients();renderTeam();renderAutomations();renderHotspots();renderTips();checkAutomations();
